@@ -1959,6 +1959,38 @@
                 font-size: 0.85rem;
             }
         }
+        /* FORCE D'AFFICHAGE DES BARRES - PRIORITÉ MAXIMALE */
+.bar {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    min-height: 5px !important;
+    height: 0% !important;
+}
+
+/* Sur mobile, garantissez que les barres soient visibles */
+@media (max-width: 768px) {
+    .bar {
+        min-height: 10px !important;
+        background: linear-gradient(to top, currentColor, rgba(255, 255, 255, 0.3)) !important;
+    }
+    
+    .bar.red {
+        background: linear-gradient(to top, #FF6B6B, #FF9E9E) !important;
+    }
+    
+    .bar.yellow {
+        background: linear-gradient(to top, #FFD93D, #FFE98C) !important;
+    }
+    
+    .bar.green {
+        background: linear-gradient(to top, #6BCF7F, #A3E7B0) !important;
+    }
+    
+    .bar.blue {
+        background: linear-gradient(to top, #4D96FF, #8BB8FF) !important;
+    }
+}
     </style>
 </head>
 
@@ -2403,338 +2435,267 @@
     <div id="scroll-to-top"></div>
 
     <script>
-        // Gestion de l'écran de chargement
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('loading-screen').classList.add('hidden');
-            }, 1000);
-        });
+    // Écran de chargement
+    setTimeout(() => {
+        document.getElementById('loading-screen').classList.add('hidden');
+    }, 1000);
 
-        // Barre de progression du scroll
-        function updateScrollProgress() {
-            const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (window.scrollY / windowHeight) * 100;
-            document.getElementById('scroll-progress').style.width = scrolled + '%';
-        }
+    // Barre de progression
+    window.addEventListener('scroll', () => {
+        const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (window.scrollY / windowHeight) * 100;
+        document.getElementById('scroll-progress').style.width = scrolled + '%';
+    });
 
-        window.addEventListener('scroll', updateScrollProgress);
+    // Navigation
+    let lastScrollTop = 0;
+    const navbar = document.querySelector('nav');
 
-        // Navigation scroll
-        let lastScrollTop = 0;
-        const navbar = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-        window.addEventListener('scroll', () => {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        if (scrollTop > 100) navbar.classList.add('scrolled');
+        else navbar.classList.remove('scrolled');
 
-            if (scrollTop > 100) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
+        if (scrollTop > lastScrollTop && scrollTop > 200) navbar.classList.add('hidden');
+        else navbar.classList.remove('hidden');
 
-            if (scrollTop > lastScrollTop && scrollTop > 200) {
-                navbar.classList.add('hidden');
-            } else {
-                navbar.classList.remove('hidden');
-            }
+        lastScrollTop = scrollTop;
+    });
 
-            lastScrollTop = scrollTop;
-        });
+    // Navigation active
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.nav-link');
 
-        // Mise en surbrillance des sections actives
-        const sections = document.querySelectorAll('section');
-        const navLinks = document.querySelectorAll('.nav-link');
+    window.addEventListener('scroll', () => {
+        const scrollPos = window.scrollY + 200;
 
-        function highlightActiveSection() {
-            const scrollPos = window.scrollY + 200;
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            const sectionId = section.getAttribute('id');
 
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.offsetHeight;
-                const sectionId = section.getAttribute('id');
-
-                if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
-                    navLinks.forEach(link => {
-                        link.classList.remove('active');
-                        if (link.getAttribute('href') === `#${sectionId}`) {
-                            link.classList.add('active');
-                        }
-                    });
-                }
-            });
-        }
-
-        window.addEventListener('scroll', highlightActiveSection);
-
-        // Navigation smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                    document.querySelector('.nav-links').classList.remove('active');
-                    document.getElementById('hamburger').classList.remove('active');
-                }
-            });
-        });
-
-        // Menu hamburger
-        const hamburger = document.getElementById('hamburger');
-        const navLinks2 = document.querySelector('.nav-links');
-
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            navLinks2.classList.toggle('active');
-        });
-
-        // Thème clair/sombre
-        const themeToggle = document.getElementById('theme-toggle');
-        const html = document.documentElement;
-
-        const currentTheme = localStorage.getItem('theme') || 'light';
-        html.setAttribute('data-theme', currentTheme);
-        themeToggle.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
-
-        themeToggle.addEventListener('click', () => {
-            const currentTheme = html.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
-            html.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
-        });
-
-        // Bouton retour en haut
-        const scrollToTopBtn = document.getElementById('scroll-to-top');
-
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 500) {
-                scrollToTopBtn.classList.add('visible');
-            } else {
-                scrollToTopBtn.classList.remove('visible');
-            }
-        });
-
-        scrollToTopBtn.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-
-        // Effets visuels
-        document.addEventListener('mousemove', (e) => {
-            if (Math.random() > 0.92) {
-                const sparkle = document.createElement('div');
-                sparkle.className = 'sparkle';
-                sparkle.style.left = e.pageX + 'px';
-                sparkle.style.top = e.pageY + 'px';
-                sparkle.style.width = '12px';
-                sparkle.style.height = '12px';
-
-                const blues = ['#42A5F5', '#1E88E5', '#90CAF9', '#64B5F6'];
-                sparkle.style.background = blues[Math.floor(Math.random() * blues.length)];
-                sparkle.style.borderRadius = '50%';
-                sparkle.style.boxShadow = '0 0 10px rgba(66, 165, 245, 0.8)';
-                document.body.appendChild(sparkle);
-
-                setTimeout(() => sparkle.remove(), 1000);
-            }
-        });
-
-        document.addEventListener('click', (e) => {
-            const ripple = document.createElement('div');
-            ripple.className = 'ripple';
-            ripple.style.left = (e.pageX - 50) + 'px';
-            ripple.style.top = (e.pageY - 50) + 'px';
-            ripple.style.position = 'fixed';
-            document.body.appendChild(ripple);
-
-            setTimeout(() => ripple.remove(), 1000);
-        });
-
-        // Animation des éléments au scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.skill-card, .about-content, .contact-content, .stat-card, .timeline-content, .analysis-card').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = 'all 0.8s ease-out';
-            observer.observe(el);
-        });
-
-        // Animation des formes flottantes
-        document.addEventListener('mousemove', (e) => {
-            const shapes = document.querySelectorAll('.shape');
-            const mouseX = e.clientX / window.innerWidth;
-            const mouseY = e.clientY / window.innerHeight;
-
-            shapes.forEach((shape, index) => {
-                const speed = (index + 1) * 20;
-                const x = mouseX * speed;
-                const y = mouseY * speed;
-                shape.style.transform = `translate(${x}px, ${y}px)`;
-            });
-        });
-
-        // Animation du titre
-        const heroTitle = document.querySelector('.hero-title');
-        const text = heroTitle.textContent;
-        heroTitle.textContent = '';
-        let i = 0;
-
-        function typeWriter() {
-            if (i < text.length) {
-                heroTitle.textContent += text.charAt(i);
-                i++;
-                setTimeout(typeWriter, 100);
-            }
-        }
-
-        setTimeout(typeWriter, 1500);
-
-        // ANIMATION DU GRAPHIQUE DISC - VERSION AMÉLIORÉE POUR MOBILE
-        function animateDiscBars() {
-            console.log("Animation des barres DISC déclenchée");
-            
-            const bars = document.querySelectorAll('.bar');
-            const values = document.querySelectorAll('.bar-value');
-            
-            const data = [
-                { value: 54.54, color: 'red' },
-                { value: 0, color: 'yellow' },
-                { value: 9.09, color: 'green' },
-                { value: 36.36, color: 'blue' }
-            ];
-
-            bars.forEach((bar, index) => {
-                setTimeout(() => {
-                    const targetHeight = Math.min(data[index].value, 100);
-                    
-                    // FORCE l'affichage sur mobile
-                    if (window.innerWidth <= 768) {
-                        bar.style.minHeight = '10px';
-                        bar.style.display = 'block';
-                        bar.style.visibility = 'visible';
-                        bar.style.opacity = '1';
+            if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${sectionId}`) {
+                        link.classList.add('active');
                     }
+                });
+            }
+        });
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                document.querySelector('.nav-links').classList.remove('active');
+                document.getElementById('hamburger').classList.remove('active');
+            }
+        });
+    });
+
+    // Menu hamburger
+    const hamburger = document.getElementById('hamburger');
+    const navLinks2 = document.querySelector('.nav-links');
+
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navLinks2.classList.toggle('active');
+    });
+
+    // Thème
+    const themeToggle = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    html.setAttribute('data-theme', currentTheme);
+    themeToggle.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = html.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+    });
+
+    // Bouton retour en haut
+    const scrollToTopBtn = document.getElementById('scroll-to-top');
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 500) scrollToTopBtn.classList.add('visible');
+        else scrollToTopBtn.classList.remove('visible');
+    });
+
+    scrollToTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Effets visuels
+    document.addEventListener('mousemove', (e) => {
+        if (Math.random() > 0.92) {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.style.left = e.pageX + 'px';
+            sparkle.style.top = e.pageY + 'px';
+            sparkle.style.width = '12px';
+            sparkle.style.height = '12px';
+            sparkle.style.background = ['#42A5F5', '#1E88E5', '#90CAF9', '#64B5F6'][Math.floor(Math.random() * 4)];
+            sparkle.style.borderRadius = '50%';
+            sparkle.style.boxShadow = '0 0 10px rgba(66, 165, 245, 0.8)';
+            document.body.appendChild(sparkle);
+            setTimeout(() => sparkle.remove(), 1000);
+        }
+    });
+
+    // Animation des éléments au scroll
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.skill-card, .about-content, .contact-content, .stat-card, .timeline-content, .analysis-card').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'all 0.8s ease-out';
+        observer.observe(el);
+    });
+
+    // Animation du titre
+    const heroTitle = document.querySelector('.hero-title');
+    const text = heroTitle.textContent;
+    heroTitle.textContent = '';
+    let i = 0;
+
+    function typeWriter() {
+        if (i < text.length) {
+            heroTitle.textContent += text.charAt(i);
+            i++;
+            setTimeout(typeWriter, 100);
+        }
+    }
+
+    setTimeout(typeWriter, 1500);
+
+    // ============================================
+    // SOLUTION DÉFINITIVE POUR LES BARRES SUR MOBILE
+    // ============================================
+
+    // Fonction SIMPLE et FIABLE pour animer les barres
+    function animateBarsSimple() {
+        console.log("Animation des barres démarrée");
+        
+        // Données des barres dans l'ordre: Rouge, Jaune, Vert, Bleu
+        const bars = [
+            { element: '.bar.red', value: 54.54 },
+            { element: '.bar.yellow', value: 0 },
+            { element: '.bar.green', value: 9.09 },
+            { element: '.bar.blue', value: 36.36 }
+        ];
+
+        bars.forEach((bar, index) => {
+            setTimeout(() => {
+                const barElement = document.querySelector(bar.element);
+                if (barElement) {
+                    // FORCE l'affichage - important pour mobile
+                    barElement.style.display = 'block';
+                    barElement.style.visibility = 'visible';
+                    barElement.style.opacity = '1';
                     
                     // Animation de la hauteur
-                    bar.style.height = `${targetHeight}%`;
+                    barElement.style.height = bar.value + '%';
+                    barElement.style.transition = 'height 1.5s ease';
                     
-                    // Animation des valeurs
-                    if (values[index]) {
+                    // Animation de la valeur
+                    const valueElement = barElement.parentElement.querySelector('.bar-value');
+                    if (valueElement) {
                         let current = 0;
-                        const target = data[index].value;
-                        const increment = target / 20;
+                        const increment = bar.value / 30;
                         
                         const animateValue = () => {
-                            if (current < target) {
-                                current += increment;
-                                values[index].textContent = `${current.toFixed(2)}%`;
+                            current += increment;
+                            if (current <= bar.value) {
+                                valueElement.textContent = current.toFixed(2) + '%';
                                 setTimeout(animateValue, 50);
                             } else {
-                                values[index].textContent = `${target}%`;
+                                valueElement.textContent = bar.value + '%';
                             }
                         };
                         
                         animateValue();
                     }
                     
-                    console.log(`Barre ${index}: ${targetHeight}%`);
-                }, index * 400);
-            });
-        }
+                    console.log(`Barre ${index} animée: ${bar.value}%`);
+                }
+            }, index * 400);
+        });
+    }
 
-        // FONCTION POUR FORCER LES BARRES SUR MOBILE
-        function forceMobileBars() {
-            console.log("Force mobile bars execution");
-            
-            const barData = [
-                { selector: '.bar.red', value: 54.54 },
-                { selector: '.bar.yellow', value: 0 },
-                { selector: '.bar.green', value: 9.09 },
-                { selector: '.bar.blue', value: 36.36 }
-            ];
-            
-            barData.forEach((item, index) => {
-                setTimeout(() => {
-                    const bar = document.querySelector(item.selector);
-                    if (bar) {
-                        // Force une hauteur minimale sur mobile
-                        bar.style.minHeight = '10px';
-                        bar.style.display = 'block';
-                        bar.style.visibility = 'visible';
-                        bar.style.opacity = '1';
-                        
-                        // Animation simple
-                        bar.style.height = `${item.value}%`;
-                        bar.style.transition = 'height 1.5s ease';
-                    }
-                }, index * 500);
+    // DÉMARRAGE IMMÉDIAT - sans observer
+    // Attendre que le DOM soit chargé
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log("DOM chargé - démarrage de l'animation");
+        
+        // Animer immédiatement après 1 seconde
+        setTimeout(animateBarsSimple, 1000);
+        
+        // Fallback après 3 secondes
+        setTimeout(() => {
+            const bars = document.querySelectorAll('.bar');
+            let anyVisible = false;
+            bars.forEach(bar => {
+                if (bar.style.height !== '0%') anyVisible = true;
             });
-        }
-
-        // Observer pour déclencher l'animation du graphique
+            
+            if (!anyVisible) {
+                console.log("Fallback - réanimation des barres");
+                animateBarsSimple();
+            }
+        }, 3000);
+        
+        // Animer aussi au scroll de la section
         const statsSection = document.getElementById('stats');
-        const chartObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    console.log("Section stats visible");
-                    setTimeout(animateDiscBars, 500);
-                    chartObserver.unobserve(entry.target);
+        if (statsSection) {
+            window.addEventListener('scroll', function() {
+                const rect = statsSection.getBoundingClientRect();
+                const isVisible = (rect.top <= window.innerHeight && rect.bottom >= 0);
+                
+                if (isVisible) {
+                    setTimeout(animateBarsSimple, 500);
+                    // Désactiver après avoir animé
+                    window.removeEventListener('scroll', arguments.callee);
                 }
             });
-        }, { 
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        });
-
-        // Toujours observer la section
-        if (statsSection) {
-            chartObserver.observe(statsSection);
         }
+    });
 
-        // Déclencher IMMÉDIATEMENT pour mobile
-        if (window.innerWidth <= 768) {
-            console.log("Mobile detected, forcing bars");
-            setTimeout(forceMobileBars, 1000);
-        }
+    // Animer aussi au changement de thème
+    themeToggle.addEventListener('click', function() {
+        setTimeout(animateBarsSimple, 300);
+    });
 
-        // Fallback absolu
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(() => {
-                const bars = document.querySelectorAll('.bar');
-                let allZero = true;
-                
-                bars.forEach(bar => {
-                    if (bar.style.height !== '0%') {
-                        allZero = false;
-                    }
-                });
-                
-                if (allZero) {
-                    console.log("Fallback: animation forcée");
-                    animateDiscBars();
-                }
-            }, 3000);
-        });
-    </script>
+    // Force l'animation même si le DOM est déjà chargé
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        setTimeout(animateBarsSimple, 1000);
+    }
+</script>
 </body>
 </html>
