@@ -22,6 +22,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap"
         rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         * {
             margin: 0;
@@ -42,7 +43,6 @@
             --card-bg: rgba(255, 255, 255, 0.95);
         }
 
-        /* Dark mode variables */
         [data-theme="dark"] {
             --blue-light: #1a2332;
             --blue-sky: #2d3e57;
@@ -64,7 +64,6 @@
             transition: background 0.5s ease, color 0.5s ease;
         }
 
-        /* Loading Screen */
         #loading-screen {
             position: fixed;
             top: 0;
@@ -112,7 +111,6 @@
             }
         }
 
-        /* Scroll Progress Bar */
         #scroll-progress {
             position: fixed;
             top: 0;
@@ -124,7 +122,6 @@
             box-shadow: 0 0 10px rgba(66, 165, 245, 0.5);
         }
 
-        /* Floating elements animation */
         .floating-shapes {
             position: fixed;
             top: 0;
@@ -206,7 +203,6 @@
             }
         }
 
-        /* Navigation */
         nav {
             position: fixed;
             top: 0;
@@ -313,7 +309,6 @@
             left: 10%;
         }
 
-        /* Dark Mode Toggle */
         .theme-toggle {
             background: linear-gradient(135deg, var(--blue-main), var(--blue-deep));
             border: none;
@@ -334,7 +329,6 @@
             box-shadow: 0 6px 20px rgba(66, 165, 245, 0.6);
         }
 
-        /* Mobile Menu */
         .hamburger {
             display: none;
             flex-direction: column;
@@ -362,7 +356,6 @@
             transform: rotate(-45deg) translate(8px, -8px);
         }
 
-        /* Hero Section */
         .hero {
             position: relative;
             min-height: 100vh;
@@ -588,7 +581,6 @@
             transform: scale(1.05) rotate(2deg);
         }
 
-        /* Section Styles */
         section {
             padding: 6rem 5%;
             position: relative;
@@ -626,7 +618,6 @@
             animation: fadeInUp 1s ease-out;
         }
 
-        /* Stats Section */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -687,7 +678,6 @@
             margin-bottom: 1rem;
         }
 
-        /* About Section */
         .about-content {
             max-width: 900px;
             margin: 0 auto;
@@ -729,7 +719,6 @@
             opacity: 0.5;
         }
 
-        /* Timeline Section */
         .timeline {
             max-width: 900px;
             margin: 0 auto;
@@ -805,7 +794,6 @@
             line-height: 1.6;
         }
 
-        /* Skills Section */
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -907,7 +895,6 @@
             border-bottom: none;
         }
 
-        /* Contact Section */
         .contact-content {
             max-width: 800px;
             margin: 0 auto;
@@ -1024,7 +1011,6 @@
             box-shadow: 0 10px 25px rgba(30, 136, 229, 0.6);
         }
 
-        /* Floating Action Button */
         #scroll-to-top {
             position: fixed;
             bottom: 30px;
@@ -1060,7 +1046,6 @@
             content: '↑';
         }
 
-        /* Footer */
         footer {
             background: var(--card-bg);
             padding: 2rem 5%;
@@ -1071,7 +1056,568 @@
             border-top: 2px solid var(--blue-light);
         }
 
-        /* Responsive */
+        /* Graphique DISC Section */
+        .disc-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .graph-wrapper {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(30, 136, 229, 0.15);
+            border: 1px solid rgba(66, 165, 245, 0.2);
+            height: 400px;
+            position: relative;
+        }
+
+        .graph-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .graph-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .graph-scale {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .scale-line {
+            width: 40px;
+            height: 1px;
+            background: var(--text-light);
+            opacity: 0.3;
+        }
+
+        .graph-bars {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            height: 250px;
+            padding: 0 1rem;
+            position: relative;
+        }
+
+        .graph-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            pointer-events: none;
+        }
+
+        .grid-line {
+            border-top: 1px dashed rgba(66, 165, 245, 0.2);
+            position: relative;
+        }
+
+        .grid-label {
+            position: absolute;
+            right: -30px;
+            transform: translateY(-50%);
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .bar-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 70px;
+            height: 100%;
+            position: relative;
+        }
+
+        .bar {
+            width: 40px;
+            border-radius: 8px 8px 0 0;
+            transition: all 0.8s ease-out;
+            position: relative;
+            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(to top, currentColor, rgba(255, 255, 255, 0.3));
+        }
+
+        .bar.red {
+            background: linear-gradient(to top, #FF6B6B, #FF9E9E);
+            color: #FF6B6B;
+        }
+
+        .bar.yellow {
+            background: linear-gradient(to top, #FFD93D, #FFE98C);
+            color: #FFD93D;
+        }
+
+        .bar.green {
+            background: linear-gradient(to top, #6BCF7F, #A3E7B0);
+            color: #6BCF7F;
+        }
+
+        .bar.blue {
+            background: linear-gradient(to top, #4D96FF, #8BB8FF);
+            color: #4D96FF;
+        }
+
+        .bar-value {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 12px;
+            background: var(--card-bg);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            color: var(--text-dark);
+            min-width: 45px;
+            text-align: center;
+        }
+
+        .bar-container:hover .bar-value {
+            opacity: 1;
+        }
+
+        .bar-label {
+            margin-top: 0.8rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .bar-height {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            position: relative;
+        }
+
+        .disc-legend {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(66, 165, 245, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .legend-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .color-box {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            flex-shrink: 0;
+        }
+
+        .color-box.red {
+            background: #FF6B6B;
+        }
+
+        .color-box.yellow {
+            background: #FFD93D;
+        }
+
+        .color-box.green {
+            background: #6BCF7F;
+        }
+
+        .color-box.blue {
+            background: #4D96FF;
+        }
+
+        .legend-text h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .legend-text p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+
+        /* Analysis Section */
+        #analyse {
+            padding: 6rem 5%;
+        }
+
+        /* Analyse des Résultats - Nouvelle organisation */
+.analysis-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto auto;
+    grid-template-areas:
+        "rouge bleu"
+        "synthèse synthèse"
+        "dev dev";
+    gap: 2.5rem;
+    align-items: stretch;
+}
+
+/* Attribution des zones de la grille */
+.red-card { 
+    grid-area: rouge; 
+    height: 100%;
+}
+
+.blue-card { 
+    grid-area: bleu; 
+    height: 100%;
+}
+
+.special-card { 
+    grid-area: synthèse; 
+}
+
+.dev-card { 
+    grid-area: dev; 
+}
+
+/* Ajuster les hauteurs pour uniformité */
+.red-card, .blue-card {
+    min-height: 420px;
+    display: flex;
+    flex-direction: column;
+}
+
+.special-card, .dev-card {
+    min-height: 320px;
+}
+
+/* Animation d'apparition séquentielle */
+.analysis-card {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+.red-card { animation-delay: 0.1s; }
+.blue-card { animation-delay: 0.2s; }
+.special-card { animation-delay: 0.3s; }
+.dev-card { animation-delay: 0.4s; }
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Amélioration responsive */
+@media (max-width: 968px) {
+    .analysis-container {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "rouge"
+            "bleu"
+            "synthèse"
+            "dev";
+        gap: 2rem;
+    }
+    
+    .red-card, .blue-card {
+        min-height: 380px;
+    }
+}
+
+@media (max-width: 768px) {
+    .analysis-card {
+        padding: 1.5rem;
+    }
+    
+    .red-card, .blue-card {
+        min-height: 360px;
+    }
+    
+    .analysis-title h3 {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 568px) {
+    #analyse {
+        padding: 4rem 5%;
+    }
+    
+    .red-card, .blue-card {
+        min-height: 340px;
+    }
+    
+    .special-card, .dev-card {
+        min-height: 300px;
+    }
+}
+
+        .analysis-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(30, 136, 229, 0.15);
+            border: 1px solid rgba(66, 165, 245, 0.2);
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .analysis-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(30, 136, 229, 0.25);
+        }
+
+        .red-card {
+            border-top: 4px solid #FF6B6B;
+        }
+
+        .blue-card {
+            border-top: 4px solid #4D96FF;
+        }
+
+        .special-card {
+            border-top: 4px solid var(--blue-main);
+            background: linear-gradient(135deg, var(--card-bg) 0%, rgba(66, 165, 245, 0.05) 100%);
+        }
+
+        .dev-card {
+            border-top: 4px solid #6BCF7F;
+        }
+
+        .analysis-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(66, 165, 245, 0.1);
+        }
+
+        .analysis-color {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            flex-shrink: 0;
+        }
+
+        .analysis-color.red {
+            background: linear-gradient(135deg, #FF6B6B, #FF9E9E);
+        }
+
+        .analysis-color.blue {
+            background: linear-gradient(135deg, #4D96FF, #8BB8FF);
+        }
+
+        .analysis-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--blue-main), var(--blue-deep));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .analysis-title h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.3rem;
+        }
+
+        .analysis-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .analysis-content {
+            flex-grow: 1;
+        }
+
+        .analysis-text {
+            color: var(--text-light);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+
+        .analysis-highlights {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .highlight-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            padding: 0.8rem;
+            background: rgba(66, 165, 245, 0.05);
+            border-radius: 10px;
+            border-left: 3px solid var(--blue-main);
+        }
+
+        .highlight-icon {
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+        }
+
+        .highlight-item span {
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        .synergy-grid {
+            display: grid;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .synergy-item {
+            padding: 1rem;
+            background: rgba(66, 165, 245, 0.08);
+            border-radius: 12px;
+            border: 1px solid rgba(66, 165, 245, 0.1);
+        }
+
+        .synergy-label {
+            font-size: 0.9rem;
+            color: var(--blue-deep);
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .synergy-value {
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .dev-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .dev-aspect h4 {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        .dev-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .dev-list li {
+            padding: 0.5rem 0;
+            color: var(--text-light);
+            border-bottom: 1px solid rgba(66, 165, 245, 0.1);
+            font-size: 0.95rem;
+        }
+
+        .dev-list li:last-child {
+            border-bottom: none;
+        }
+
+        .dev-color {
+            font-weight: 600;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            margin-right: 0.3rem;
+        }
+
+        .dev-color.green {
+            background: rgba(107, 207, 127, 0.15);
+            color: #6BCF7F;
+        }
+
+        .dev-color.yellow {
+            background: rgba(255, 217, 61, 0.15);
+            color: #FFD93D;
+        }
+
+        .dev-text {
+            color: var(--text-light);
+            line-height: 1.7;
+            font-size: 0.95rem;
+            padding: 0.8rem;
+            background: rgba(107, 207, 127, 0.08);
+            border-radius: 10px;
+            border-left: 3px solid #6BCF7F;
+        }
+
+        /* Responsive pour la section analyse */
+        @media (max-width: 968px) {
+            .analysis-container {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .analysis-card {
+                padding: 1.5rem;
+            }
+
+            .analysis-title h3 {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 568px) {
+            #analyse {
+                padding: 4rem 5%;
+            }
+
+            .analysis-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
         @media (max-width: 968px) {
             .nav-links {
                 position: fixed;
@@ -1133,7 +1679,6 @@
                 left: 20px;
             }
 
-            /* Contact section improvements for tablets */
             .contact-info {
                 gap: 1.5rem;
             }
@@ -1141,11 +1686,33 @@
             .social-links {
                 gap: 1.5rem;
             }
+
+            .disc-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .graph-wrapper {
+                max-width: 500px;
+                margin: 0 auto;
+                height: 350px;
+            }
+
+            .bar-container {
+                width: 60px;
+            }
+
+            .bar {
+                width: 35px;
+            }
+
+            .bar-value {
+                font-size: 0.8rem;
+                min-width: 40px;
+            }
         }
 
         @media (max-width: 768px) {
-
-            /* Force contact items to stack on tablets and below */
             .contact-info {
                 grid-template-columns: 1fr;
                 gap: 1rem;
@@ -1159,7 +1726,6 @@
                 padding: 2rem;
             }
 
-            /* Ensure email wraps properly */
             .contact-details p,
             .contact-details a {
                 word-break: break-word;
@@ -1174,6 +1740,33 @@
 
             .stat-card {
                 padding: 2rem;
+            }
+
+            .graph-wrapper {
+                padding: 1.5rem;
+                height: 320px;
+            }
+
+            .legend-item {
+                padding: 1.2rem;
+            }
+
+            .bar-container {
+                width: 55px;
+            }
+
+            .bar {
+                width: 30px;
+            }
+
+            .bar-label {
+                font-size: 0.8rem;
+            }
+
+            .graph-header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
             }
         }
 
@@ -1208,7 +1801,6 @@
                 font-size: 1rem;
             }
 
-            /* Reduce padding for mobile */
             section {
                 padding: 4rem 5%;
             }
@@ -1218,7 +1810,6 @@
                 padding: 2rem 1.5rem;
             }
 
-            /* Social links spacing */
             .social-links {
                 gap: 1rem;
             }
@@ -1229,26 +1820,48 @@
                 font-size: 1.3rem;
             }
 
-            /* Skill cards */
             .skill-card {
                 padding: 2rem 1.5rem;
             }
 
-            /* Timeline adjustments */
             .timeline-content {
                 padding: 1.5rem;
                 margin-left: 40px;
             }
 
-            /* Stats */
             .stat-number {
                 font-size: 2.5rem;
+            }
+
+            .graph-wrapper {
+                height: 280px;
+            }
+
+            .graph-bars {
+                padding: 0 0.5rem;
+            }
+
+            .bar-container {
+                width: 50px;
+            }
+
+            .bar {
+                width: 28px;
+            }
+
+            .bar-value {
+                font-size: 0.75rem;
+                min-width: 35px;
+                top: -25px;
+            }
+
+            .grid-label {
+                font-size: 0.7rem;
+                right: -25px;
             }
         }
 
         @media (max-width: 480px) {
-
-            /* Very small phones */
             .hero-title {
                 font-size: 2rem;
             }
@@ -1279,7 +1892,6 @@
                 font-size: 1.3rem;
             }
 
-            /* Contact section for very small screens */
             .contact-details p,
             .contact-details a {
                 font-size: 0.95rem;
@@ -1294,14 +1906,12 @@
                 gap: 0.8rem;
             }
 
-            /* Ensure buttons are touch-friendly */
             .btn {
                 min-height: 44px;
                 padding: 0.9rem 1.5rem;
                 font-size: 1rem;
             }
 
-            /* Image sizes */
             .image-container {
                 width: 250px;
                 height: 250px;
@@ -1312,7 +1922,6 @@
                 height: 220px;
             }
 
-            /* Scroll to top button */
             #scroll-to-top {
                 width: 50px;
                 height: 50px;
@@ -1320,13 +1929,42 @@
                 right: 20px;
             }
 
-            /* Reduce section padding further */
             section {
                 padding: 3rem 4%;
             }
+
+            .graph-wrapper {
+                height: 250px;
+                padding: 1rem;
+            }
+
+            .bar-container {
+                width: 45px;
+            }
+
+            .bar {
+                width: 25px;
+            }
+
+            .bar-label {
+                font-size: 0.75rem;
+            }
+
+            .bar-value {
+                font-size: 0.7rem;
+                min-width: 30px;
+                top: -22px;
+            }
+
+            .graph-title {
+                font-size: 1rem;
+            }
+
+            .graph-scale {
+                font-size: 0.8rem;
+            }
         }
 
-        /* Sparkle effect */
         .sparkle {
             position: fixed;
             pointer-events: none;
@@ -1346,7 +1984,6 @@
             }
         }
 
-        /* Water ripple effect */
         .ripple {
             position: absolute;
             border-radius: 50%;
@@ -1372,16 +2009,13 @@
 </head>
 
 <body>
-    <!-- Loading Screen -->
     <div id="loading-screen">
         <div class="loader"></div>
         <div class="loader-text">Balkiss ✨</div>
     </div>
 
-    <!-- Scroll Progress Bar -->
     <div id="scroll-progress"></div>
 
-    <!-- Floating Shapes -->
     <div class="floating-shapes">
         <div class="shape"></div>
         <div class="shape"></div>
@@ -1389,14 +2023,15 @@
         <div class="shape"></div>
     </div>
 
-    <!-- Navigation -->
     <nav>
         <div class="nav-container">
             <div class="logo" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Balkiss ✨</div>
             <ul class="nav-links">
                 <li><a href="#accueil" class="nav-link">Accueil</a></li>
                 <li><a href="#apropos" class="nav-link">À propos</a></li>
+                
                 <li><a href="#parcours" class="nav-link">Parcours</a></li>
+                <li><a href="#analyse" class="nav-link">Analyse</a></li>
                 <li><a href="#competences" class="nav-link">Compétences</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
@@ -1411,7 +2046,6 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <section id="accueil" class="hero">
         <div class="hero-content">
             <div class="hero-text">
@@ -1438,35 +2072,237 @@
         </div>
     </section>
 
-    <!-- Stats Section -->
     <section id="stats">
-        <h2 class="section-title">En chiffres</h2>
-        <p class="section-subtitle">Mon parcours résumé</p>
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-icon">📚</div>
-                <div class="stat-number" data-target="2">0</div>
-                <div class="stat-label">Années d'étude</div>
+        <h2 class="section-title">Profil Personnel</h2>
+        <p class="section-subtitle">Mon profil DISC en visualisation</p>
+
+        <div class="disc-container">
+            <div class="graph-wrapper">
+                <div class="graph-header">
+                    <div class="graph-title">Niveau des compétences</div>
+                    <div class="graph-scale">
+                        <span>0%</span>
+                        <div class="scale-line"></div>
+                        <span>100%</span>
+                    </div>
+                </div>
+
+                <div class="graph-bars">
+
+
+                    <!-- Barres -->
+                    <div class="bar-container" data-value="54.54">
+                        <div class="bar-height">
+                            <div class="bar red" style="height: 0%;"></div>
+                            <div class="bar-value">54.54%</div>
+                        </div>
+                        <div class="bar-label">Rouge</div>
+                    </div>
+
+                    <div class="bar-container" data-value="0">
+                        <div class="bar-height">
+                            <div class="bar yellow" style="height: 0%;"></div>
+                            <div class="bar-value">0%</div>
+                        </div>
+                        <div class="bar-label">Jaune</div>
+                    </div>
+
+                    <div class="bar-container" data-value="9.09">
+                        <div class="bar-height">
+                            <div class="bar green" style="height: 0%;"></div>
+                            <div class="bar-value">9.09%</div>
+                        </div>
+                        <div class="bar-label">Vert</div>
+                    </div>
+
+                    <div class="bar-container" data-value="36.36">
+                        <div class="bar-height">
+                            <div class="bar blue" style="height: 0%;"></div>
+                            <div class="bar-value">36.36%</div>
+                        </div>
+                        <div class="bar-label">Bleu</div>
+                    </div>
+                </div>
             </div>
-            <div class="stat-card">
-                <div class="stat-icon">🌍</div>
-                <div class="stat-number" data-target="4">0</div>
-                <div class="stat-label">Langues</div>
-            </div>
-            <!-- <div class="stat-card">
-                <div class="stat-icon">💼</div>
-                <div class="stat-number" data-target="1">0</div>
-                <div class="stat-label">Expérience chez Deloitte</div>
-            </div> -->
-            <div class="stat-card">
-                <div class="stat-icon">✨</div>
-                <div class="stat-number" data-target="100">0</div>
-                <div class="stat-label">% Motivation</div>
+
+            <div class="disc-legend">
+                <div class="legend-item" data-color="red">
+                    <div class="color-box red"></div>
+                    <div class="legend-text">
+                        <h4>Rouge</h4>
+                        <p>Feu, Force, Puissance, Audace, Détermination...</p>
+                    </div>
+                </div>
+
+                <div class="legend-item" data-color="yellow">
+                    <div class="color-box yellow"></div>
+                    <div class="legend-text">
+                        <h4>Jaune</h4>
+                        <p>Chaleur, Vitalité, Communication, Optimisme...</p>
+                    </div>
+                </div>
+
+                <div class="legend-item" data-color="green">
+                    <div class="color-box green"></div>
+                    <div class="legend-text">
+                        <h4>Vert</h4>
+                        <p>Calme, Nature, Tranquillité, Apaisant...</p>
+                    </div>
+                </div>
+
+                <div class="legend-item" data-color="blue">
+                    <div class="color-box blue"></div>
+                    <div class="legend-text">
+                        <h4>Bleu</h4>
+                        <p>Froid, Profond, Autorité, Objectivité, Fiabilité...</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
+    <!-- Analyse des Résultats -->
+    <section id="analyse">
+        <h2 class="section-title">Analyse du Profil Comportemental</h2>
+        <p class="section-subtitle">Interprétation détaillée des résultats DISC</p>
+
+        <div class="analysis-container">
+            <!-- Dominante Rouge -->
+            <div class="analysis-card red-card">
+                <div class="analysis-header">
+                    <div class="analysis-color red"></div>
+                    <div class="analysis-title">
+                        <h3>Dominante Rouge (55%)</h3>
+                        <p class="analysis-subtitle">Dominance - Action - Performance</p>
+                    </div>
+                </div>
+                <div class="analysis-content">
+                    <p class="analysis-text">
+                        Orientation fortement marquée vers l'action, la performance et la prise de décision.
+                        Cette prédominance révèle une capacité élevée à assumer des responsabilités, à gérer la pression
+                        et à évoluer efficacement dans des contextes professionnels exigeants.
+                    </p>
+                    <div class="analysis-highlights">
+                        <div class="highlight-item">
+                            <div class="highlight-icon">⚡</div>
+                            <span>Leadership affirmé et grande détermination</span>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-icon">🎯</div>
+                            <span>Aptitude à trancher rapidement pour atteindre les objectifs</span>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-icon">🚀</div>
+                            <span>Capacité à assumer des responsabilités sous pression</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dimension Bleue -->
+            <div class="analysis-card blue-card">
+                <div class="analysis-header">
+                    <div class="analysis-color blue"></div>
+                    <div class="analysis-title">
+                        <h3>Dimension Bleue (36%)</h3>
+                        <p class="analysis-subtitle">Conformité - Analyse - Structure</p>
+                    </div>
+                </div>
+                <div class="analysis-content">
+                    <p class="analysis-text">
+                        Approche analytique, structurée et rigoureuse, caractérisée par le respect des procédures,
+                        la recherche de précision et la qualité de l'exécution.
+                    </p>
+                    <div class="analysis-highlights">
+                        <div class="highlight-item">
+                            <div class="highlight-icon">📊</div>
+                            <span>Respect des procédures et recherche de précision</span>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-icon">🔍</div>
+                            <span>Esprit critique et sens de l'organisation</span>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-icon">⚖️</div>
+                            <span>Raisonnement méthodique et rigueur analytique</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Synthèse -->
+            <div class="analysis-card special-card">
+                <div class="analysis-header">
+                    <div class="analysis-icon">✨</div>
+                    <div class="analysis-title">
+                        <h3>Synthèse du Profil</h3>
+                        <p class="analysis-subtitle">Rouge + Bleu : Équilibre unique</p>
+                    </div>
+                </div>
+                <div class="analysis-content">
+                    <p class="analysis-text">
+                        L'association des dimensions <strong>Rouge</strong> et <strong>Bleue</strong> traduit un profil
+                        professionnel alliant
+                        <strong>réactivité décisionnelle</strong> et <strong>raisonnement méthodique</strong>,
+                        particulièrement adapté aux fonctions nécessitant
+                        à la fois efficacité opérationnelle, esprit critique et sens de l'organisation.
+                    </p>
+                    <div class="synergy-grid">
+                        <div class="synergy-item">
+                            <div class="synergy-label">Mode de fonctionnement</div>
+                            <div class="synergy-value">Direct, factuel et orienté résultats</div>
+                        </div>
+                        <div class="synergy-item">
+                            <div class="synergy-label">Atouts clés</div>
+                            <div class="synergy-value">Clarté des échanges et productivité</div>
+                        </div>
+                        <div class="synergy-item">
+                            <div class="synergy-label">Domaine d'excellence</div>
+                            <div class="synergy-value">Contexte exigeant et structuré</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Points de développement -->
+            <div class="analysis-card dev-card">
+                <div class="analysis-header">
+                    <div class="analysis-icon">🌱</div>
+                    <div class="analysis-title">
+                        <h3>Perspectives de Développement</h3>
+                        <p class="analysis-subtitle">Optimisation de la performance collective</p>
+                    </div>
+                </div>
+                <div class="analysis-content">
+                    <div class="dev-content">
+                        <div class="dev-aspect">
+                            <h4>Dimensions à renforcer :</h4>
+                            <ul class="dev-list">
+                                <li><span class="dev-color green">Vert (9%) :</span> Recherche de consensus et patience
+                                    relationnelle</li>
+                                <li><span class="dev-color yellow">Jaune (0%) :</span> Expression émotionnelle et
+                                    dynamiques humaines</li>
+                            </ul>
+                        </div>
+                        <div class="dev-aspect">
+                            <h4>Recommandations :</h4>
+                            <p class="dev-text">
+                                Dans une optique de développement professionnel durable, il apparaît pertinent de
+                                renforcer
+                                la prise en compte des dynamiques humaines et du rythme des collaborateurs afin
+                                d'optimiser
+                                la performance collective.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
     <section id="apropos">
         <h2 class="section-title">À Propos de Moi</h2>
         <p class="section-subtitle">Mon parcours, mes valeurs, ma vision</p>
@@ -1487,7 +2323,6 @@
         </div>
     </section>
 
-    <!-- Timeline Section -->
     <section id="parcours">
         <h2 class="section-title">Mon Parcours</h2>
         <p class="section-subtitle">Les étapes clés de mon développement professionnel</p>
@@ -1518,7 +2353,6 @@
         </div>
     </section>
 
-    <!-- Skills Section -->
     <section id="competences">
         <h2 class="section-title">Mes Compétences</h2>
         <p class="section-subtitle">Ce qui me définit professionnellement</p>
@@ -1556,7 +2390,6 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
     <section id="contact">
         <h2 class="section-title">Contactez-moi</h2>
         <p class="section-subtitle">N'hésitez pas à me contacter pour toute opportunité</p>
@@ -1584,23 +2417,19 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <p>© 2025 Balkiss Touihri | Créé avec passion ✨ | Tous droits réservés</p>
     </footer>
 
-    <!-- Scroll to Top Button -->
     <div id="scroll-to-top"></div>
 
     <script>
-        // Loading Screen
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.getElementById('loading-screen').classList.add('hidden');
             }, 1000);
         });
 
-        // Scroll Progress Bar
         function updateScrollProgress() {
             const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
             const scrolled = (window.scrollY / windowHeight) * 100;
@@ -1609,21 +2438,18 @@
 
         window.addEventListener('scroll', updateScrollProgress);
 
-        // Navbar scroll effects
         let lastScrollTop = 0;
         const navbar = document.querySelector('nav');
 
         window.addEventListener('scroll', () => {
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-            // Add scrolled class
             if (scrollTop > 100) {
                 navbar.classList.add('scrolled');
             } else {
                 navbar.classList.remove('scrolled');
             }
 
-            // Hide/show navbar
             if (scrollTop > lastScrollTop && scrollTop > 200) {
                 navbar.classList.add('hidden');
             } else {
@@ -1633,7 +2459,6 @@
             lastScrollTop = scrollTop;
         });
 
-        // Active section highlighting
         const sections = document.querySelectorAll('section');
         const navLinks = document.querySelectorAll('.nav-link');
 
@@ -1658,7 +2483,6 @@
 
         window.addEventListener('scroll', highlightActiveSection);
 
-        // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1668,14 +2492,12 @@
                         behavior: 'smooth',
                         block: 'start'
                     });
-                    // Close mobile menu if open
                     document.querySelector('.nav-links').classList.remove('active');
                     document.getElementById('hamburger').classList.remove('active');
                 }
             });
         });
 
-        // Mobile menu toggle
         const hamburger = document.getElementById('hamburger');
         const navLinks2 = document.querySelector('.nav-links');
 
@@ -1684,11 +2506,9 @@
             navLinks2.classList.toggle('active');
         });
 
-        // Dark mode toggle
         const themeToggle = document.getElementById('theme-toggle');
         const html = document.documentElement;
 
-        // Check for saved theme preference
         const currentTheme = localStorage.getItem('theme') || 'light';
         html.setAttribute('data-theme', currentTheme);
         themeToggle.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
@@ -1702,7 +2522,6 @@
             themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
         });
 
-        // Scroll to top button
         const scrollToTopBtn = document.getElementById('scroll-to-top');
 
         window.addEventListener('scroll', () => {
@@ -1720,7 +2539,6 @@
             });
         });
 
-        // Stats counter animation
         function animateCounter(element) {
             const target = parseInt(element.getAttribute('data-target'));
             const duration = 2000;
@@ -1740,7 +2558,6 @@
             updateCounter();
         }
 
-        // Enhanced sparkle effect on mouse move
         document.addEventListener('mousemove', (e) => {
             if (Math.random() > 0.92) {
                 const sparkle = document.createElement('div');
@@ -1750,7 +2567,6 @@
                 sparkle.style.width = '12px';
                 sparkle.style.height = '12px';
 
-                // Random blue shades
                 const blues = ['#42A5F5', '#1E88E5', '#90CAF9', '#64B5F6'];
                 sparkle.style.background = blues[Math.floor(Math.random() * blues.length)];
                 sparkle.style.borderRadius = '50%';
@@ -1761,7 +2577,6 @@
             }
         });
 
-        // Click ripple effect
         document.addEventListener('click', (e) => {
             const ripple = document.createElement('div');
             ripple.className = 'ripple';
@@ -1773,7 +2588,6 @@
             setTimeout(() => ripple.remove(), 1000);
         });
 
-        // Scroll reveal animation
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -100px 0px'
@@ -1787,7 +2601,6 @@
                     entry.target.style.opacity = '1';
                     entry.target.style.transform = 'translateY(0)';
 
-                    // Animate counters when stats section is visible
                     if (entry.target.classList.contains('stat-card') && !statsAnimated) {
                         statsAnimated = true;
                         document.querySelectorAll('.stat-number').forEach(counter => {
@@ -1798,14 +2611,13 @@
             });
         }, observerOptions);
 
-        document.querySelectorAll('.skill-card, .about-content, .contact-content, .stat-card, .timeline-content').forEach(el => {
+        document.querySelectorAll('.skill-card, .about-content, .contact-content, .stat-card, .timeline-content , .analysis-card').forEach(el => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(30px)';
             el.style.transition = 'all 0.8s ease-out';
             observer.observe(el);
         });
 
-        // Parallax effect for floating shapes
         document.addEventListener('mousemove', (e) => {
             const shapes = document.querySelectorAll('.shape');
             const mouseX = e.clientX / window.innerWidth;
@@ -1819,7 +2631,6 @@
             });
         });
 
-        // Dynamic text animation
         const heroTitle = document.querySelector('.hero-title');
         const text = heroTitle.textContent;
         heroTitle.textContent = '';
@@ -1834,6 +2645,82 @@
         }
 
         setTimeout(typeWriter, 1500);
+
+        function createDISCChart() {
+            // Données du graphique
+            const data = [
+                { value: 54.54, color: 'red', label: 'Rouge' },
+                { value: 0, color: 'yellow', label: 'Jaune' },
+                { value: 9.09, color: 'green', label: 'Vert' },
+                { value: 36.36, color: 'blue', label: 'Bleu' }
+            ];
+
+            // Animation fluide des barres
+            const bars = document.querySelectorAll('.bar');
+            const barContainers = document.querySelectorAll('.bar-container');
+
+            bars.forEach((bar, index) => {
+                const value = data[index].value;
+                const height = Math.min(value, 100); // Limiter à 100%
+
+                // Animation avec délai progressif
+                setTimeout(() => {
+                    bar.style.height = `${height}%`;
+                    bar.style.transition = 'height 1.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                }, index * 300);
+
+                // Effet de brillance lors de l'animation
+                setTimeout(() => {
+                    bar.style.boxShadow = '0 -4px 20px rgba(255, 255, 255, 0.4)';
+                    setTimeout(() => {
+                        bar.style.boxShadow = '0 -4px 10px rgba(0, 0, 0, 0.1)';
+                    }, 1000);
+                }, index * 300 + 500);
+            });
+
+            // Effet au survol
+            barContainers.forEach(container => {
+                const bar = container.querySelector('.bar');
+                const value = container.querySelector('.bar-value');
+
+                container.addEventListener('mouseenter', () => {
+                    bar.style.transform = 'scale(1.05)';
+                    bar.style.filter = 'brightness(1.1)';
+                    if (value) value.style.opacity = '1';
+                });
+
+                container.addEventListener('mouseleave', () => {
+                    bar.style.transform = 'scale(1)';
+                    bar.style.filter = 'brightness(1)';
+                    if (value) value.style.opacity = '0';
+                });
+            });
+
+            // Animation des valeurs
+            const barValues = document.querySelectorAll('.bar-value');
+            barValues.forEach((valueElement, index) => {
+                const finalValue = data[index].value;
+                let current = 0;
+                const increment = finalValue / 50; // 50 étapes d'animation
+
+                const animateValue = () => {
+                    if (current < finalValue) {
+                        current += increment;
+                        valueElement.textContent = `${current.toFixed(2)}%`;
+                        requestAnimationFrame(animateValue);
+                    } else {
+                        valueElement.textContent = `${finalValue}%`;
+                    }
+                };
+
+                setTimeout(animateValue, index * 300);
+            });
+        }
+
+        // Initialiser le graphique
+        document.addEventListener('DOMContentLoaded', function () {
+            setTimeout(createDISCChart, 1000);
+        });
     </script>
 </body>
 
