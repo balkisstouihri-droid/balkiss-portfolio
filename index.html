@@ -22,7 +22,6 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap"
         rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         * {
             margin: 0;
@@ -105,7 +104,6 @@
             0% {
                 transform: rotate(0deg);
             }
-
             100% {
                 transform: rotate(360deg);
             }
@@ -184,20 +182,15 @@
         }
 
         @keyframes float {
-
-            0%,
-            100% {
+            0%, 100% {
                 transform: translateY(0) rotate(0deg) scale(1);
             }
-
             25% {
                 transform: translateY(-30px) rotate(90deg) scale(1.1);
             }
-
             50% {
                 transform: translateY(0) rotate(180deg) scale(1);
             }
-
             75% {
                 transform: translateY(30px) rotate(270deg) scale(0.9);
             }
@@ -233,7 +226,6 @@
                 transform: translateY(-100%);
                 opacity: 0;
             }
-
             to {
                 transform: translateY(0);
                 opacity: 1;
@@ -261,12 +253,9 @@
         }
 
         @keyframes shimmer {
-
-            0%,
-            100% {
+            0%, 100% {
                 filter: hue-rotate(0deg) brightness(1);
             }
-
             50% {
                 filter: hue-rotate(20deg) brightness(1.2);
             }
@@ -383,7 +372,6 @@
                 opacity: 0;
                 transform: translateX(-50px);
             }
-
             to {
                 opacity: 1;
                 transform: translateX(0);
@@ -402,7 +390,6 @@
             from {
                 opacity: 0;
             }
-
             to {
                 opacity: 1;
             }
@@ -507,7 +494,6 @@
                 opacity: 0;
                 transform: translateX(50px);
             }
-
             to {
                 opacity: 1;
                 transform: translateX(0);
@@ -531,14 +517,11 @@
         }
 
         @keyframes pulse {
-
-            0%,
-            100% {
+            0%, 100% {
                 transform: scale(1);
                 opacity: 0.3;
                 box-shadow: 0 0 0 0 rgba(30, 136, 229, 0.7);
             }
-
             50% {
                 transform: scale(1.1);
                 opacity: 0.5;
@@ -566,12 +549,9 @@
         }
 
         @keyframes floatImage {
-
-            0%,
-            100% {
+            0%, 100% {
                 transform: translateY(0);
             }
-
             50% {
                 transform: translateY(-20px);
             }
@@ -603,7 +583,6 @@
                 opacity: 0;
                 transform: translateY(30px);
             }
-
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -842,12 +821,9 @@
         }
 
         @keyframes bounce {
-
-            0%,
-            100% {
+            0%, 100% {
                 transform: translateY(0);
             }
-
             50% {
                 transform: translateY(-10px);
             }
@@ -861,7 +837,6 @@
             from {
                 transform: rotate(0deg);
             }
-
             to {
                 transform: rotate(360deg);
             }
@@ -1113,31 +1088,6 @@
             position: relative;
         }
 
-        .graph-grid {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            pointer-events: none;
-        }
-
-        .grid-line {
-            border-top: 1px dashed rgba(66, 165, 245, 0.2);
-            position: relative;
-        }
-
-        .grid-label {
-            position: absolute;
-            right: -30px;
-            transform: translateY(-50%);
-            font-size: 0.8rem;
-            color: var(--text-light);
-        }
-
         .bar-container {
             display: flex;
             flex-direction: column;
@@ -1150,10 +1100,11 @@
         .bar {
             width: 40px;
             border-radius: 8px 8px 0 0;
-            transition: all 0.8s ease-out;
+            transition: all 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
             position: relative;
             box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
             background: linear-gradient(to top, currentColor, rgba(255, 255, 255, 0.3));
+            height: 0%;
         }
 
         .bar.red {
@@ -1279,113 +1230,68 @@
         }
 
         /* Analyse des Résultats - Nouvelle organisation */
-.analysis-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: auto auto;
-    grid-template-areas:
-        "rouge bleu"
-        "synthèse synthèse"
-        "dev dev";
-    gap: 2.5rem;
-    align-items: stretch;
-}
+        .analysis-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: auto auto;
+            grid-template-areas:
+                "rouge bleu"
+                "synthèse synthèse"
+                "dev dev";
+            gap: 2.5rem;
+            align-items: stretch;
+        }
 
-/* Attribution des zones de la grille */
-.red-card { 
-    grid-area: rouge; 
-    height: 100%;
-}
+        /* Attribution des zones de la grille */
+        .red-card { 
+            grid-area: rouge; 
+            height: 100%;
+        }
 
-.blue-card { 
-    grid-area: bleu; 
-    height: 100%;
-}
+        .blue-card { 
+            grid-area: bleu; 
+            height: 100%;
+        }
 
-.special-card { 
-    grid-area: synthèse; 
-}
+        .special-card { 
+            grid-area: synthèse; 
+        }
 
-.dev-card { 
-    grid-area: dev; 
-}
+        .dev-card { 
+            grid-area: dev; 
+        }
 
-/* Ajuster les hauteurs pour uniformité */
-.red-card, .blue-card {
-    min-height: 420px;
-    display: flex;
-    flex-direction: column;
-}
+        /* Ajuster les hauteurs pour uniformité */
+        .red-card, .blue-card {
+            min-height: 420px;
+            display: flex;
+            flex-direction: column;
+        }
 
-.special-card, .dev-card {
-    min-height: 320px;
-}
+        .special-card, .dev-card {
+            min-height: 320px;
+        }
 
-/* Animation d'apparition séquentielle */
-.analysis-card {
-    opacity: 0;
-    transform: translateY(30px);
-    animation: fadeInUp 0.8s ease forwards;
-}
+        /* Animation d'apparition séquentielle */
+        .analysis-card {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
 
-.red-card { animation-delay: 0.1s; }
-.blue-card { animation-delay: 0.2s; }
-.special-card { animation-delay: 0.3s; }
-.dev-card { animation-delay: 0.4s; }
+        .red-card { animation-delay: 0.1s; }
+        .blue-card { animation-delay: 0.2s; }
+        .special-card { animation-delay: 0.3s; }
+        .dev-card { animation-delay: 0.4s; }
 
-@keyframes fadeInUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Amélioration responsive */
-@media (max-width: 968px) {
-    .analysis-container {
-        grid-template-columns: 1fr;
-        grid-template-areas:
-            "rouge"
-            "bleu"
-            "synthèse"
-            "dev";
-        gap: 2rem;
-    }
-    
-    .red-card, .blue-card {
-        min-height: 380px;
-    }
-}
-
-@media (max-width: 768px) {
-    .analysis-card {
-        padding: 1.5rem;
-    }
-    
-    .red-card, .blue-card {
-        min-height: 360px;
-    }
-    
-    .analysis-title h3 {
-        font-size: 1.2rem;
-    }
-}
-
-@media (max-width: 568px) {
-    #analyse {
-        padding: 4rem 5%;
-    }
-    
-    .red-card, .blue-card {
-        min-height: 340px;
-    }
-    
-    .special-card, .dev-card {
-        min-height: 300px;
-    }
-}
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
         .analysis-card {
             background: var(--card-bg);
@@ -1591,10 +1497,59 @@
             border-left: 3px solid #6BCF7F;
         }
 
-        /* Responsive pour la section analyse */
+        .sparkle {
+            position: fixed;
+            pointer-events: none;
+            animation: sparkleAnim 1s forwards;
+            z-index: 9999;
+        }
+
+        @keyframes sparkleAnim {
+            0% {
+                transform: scale(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1.5) rotate(180deg);
+                opacity: 0;
+            }
+        }
+
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid var(--blue-main);
+            animation: rippleEffect 1s ease-out forwards;
+            pointer-events: none;
+        }
+
+        @keyframes rippleEffect {
+            from {
+                width: 0;
+                height: 0;
+                opacity: 1;
+            }
+            to {
+                width: 100px;
+                height: 100px;
+                opacity: 0;
+            }
+        }
+
+        /* Responsive Design */
         @media (max-width: 968px) {
             .analysis-container {
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "rouge"
+                    "bleu"
+                    "synthèse"
+                    "dev";
+                gap: 2rem;
+            }
+            
+            .red-card, .blue-card {
+                min-height: 380px;
             }
         }
 
@@ -1602,7 +1557,11 @@
             .analysis-card {
                 padding: 1.5rem;
             }
-
+            
+            .red-card, .blue-card {
+                min-height: 360px;
+            }
+            
             .analysis-title h3 {
                 font-size: 1.2rem;
             }
@@ -1612,9 +1571,13 @@
             #analyse {
                 padding: 4rem 5%;
             }
-
-            .analysis-container {
-                grid-template-columns: 1fr;
+            
+            .red-card, .blue-card {
+                min-height: 340px;
+            }
+            
+            .special-card, .dev-card {
+                min-height: 300px;
             }
         }
 
@@ -1712,101 +1675,101 @@
             }
         }
 
-      @media (max-width: 768px) {
-    .contact-info {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-    }
+        @media (max-width: 768px) {
+            .contact-info {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
 
-    .contact-item {
-        padding: 1.2rem;
-    }
+            .contact-item {
+                padding: 1.2rem;
+            }
 
-    .contact-content {
-        padding: 2rem;
-    }
+            .contact-content {
+                padding: 2rem;
+            }
 
-    .contact-details p,
-    .contact-details a {
-        word-break: break-word;
-        overflow-wrap: break-word;
-        hyphens: auto;
-    }
+            .contact-details p,
+            .contact-details a {
+                word-break: break-word;
+                overflow-wrap: break-word;
+                hyphens: auto;
+            }
 
-    .stats-grid {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 1.5rem;
-    }
+            .stats-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 1.5rem;
+            }
 
-    .stat-card {
-        padding: 2rem;
-    }
+            .stat-card {
+                padding: 2rem;
+            }
 
-    /* AMÉLIORATION DU GRAPHIQUE POUR MOBILE */
-    .disc-container {
-        gap: 2rem;
-    }
-    
-    .graph-wrapper {
-        padding: 1.5rem;
-        height: 350px; /* Légèrement plus haut */
-        max-width: 100%;
-        overflow: hidden;
-    }
-    
-    .graph-bars {
-        justify-content: space-between;
-        padding: 0 0.5rem;
-        gap: 0.5rem;
-    }
-    
-    .bar-container {
-        width: 22%; /* Pourcentage au lieu de pixels fixes */
-        min-width: 65px;
-    }
-    
-    .bar {
-        width: 80%; /* Pourcentage pour s'adapter */
-        max-width: 40px;
-        margin: 0 auto;
-    }
-    
-    .bar-label {
-        font-size: 0.9rem;
-        font-weight: 600;
-        text-align: center;
-        margin-top: 1rem;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-    
-    .bar-value {
-        font-size: 0.85rem;
-        min-width: 50px;
-        top: -35px;
-        padding: 4px 8px;
-    }
-    
-    .graph-header {
-        flex-direction: column;
-        gap: 1rem;
-        text-align: center;
-        margin-bottom: 2rem;
-    }
-    
-    .graph-title {
-        font-size: 1.1rem;
-    }
-    
-    .graph-scale {
-        font-size: 0.9rem;
-    }
-    
-    .legend-item {
-        padding: 1.2rem;
-    }
-}
+            /* AMÉLIORATION DU GRAPHIQUE POUR MOBILE */
+            .disc-container {
+                gap: 2rem;
+            }
+            
+            .graph-wrapper {
+                padding: 1.5rem;
+                height: 350px;
+                max-width: 100%;
+                overflow: hidden;
+            }
+            
+            .graph-bars {
+                justify-content: space-between;
+                padding: 0 0.5rem;
+                gap: 0.5rem;
+            }
+            
+            .bar-container {
+                width: 22%;
+                min-width: 65px;
+            }
+            
+            .bar {
+                width: 80%;
+                max-width: 40px;
+                margin: 0 auto;
+            }
+            
+            .bar-label {
+                font-size: 0.9rem;
+                font-weight: 600;
+                text-align: center;
+                margin-top: 1rem;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            
+            .bar-value {
+                font-size: 0.85rem;
+                min-width: 50px;
+                top: -35px;
+                padding: 4px 8px;
+            }
+            
+            .graph-header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+                margin-bottom: 2rem;
+            }
+            
+            .graph-title {
+                font-size: 1.1rem;
+            }
+            
+            .graph-scale {
+                font-size: 0.9rem;
+            }
+            
+            .legend-item {
+                padding: 1.2rem;
+            }
+        }
 
         @media (max-width: 568px) {
             .hero-title {
@@ -1892,181 +1855,136 @@
                 min-width: 35px;
                 top: -25px;
             }
-
-            .grid-label {
-                font-size: 0.7rem;
-                right: -25px;
-            }
         }
 
-    @media (max-width: 480px) {
-    .hero-title {
-        font-size: 2rem;
-    }
-
-    .hero-greeting {
-        font-size: 1.1rem;
-    }
-
-    .hero-subtitle {
-        font-size: 1.1rem;
-    }
-
-    .section-title {
-        font-size: 1.8rem;
-    }
-
-    nav {
-        padding: 1rem 4%;
-    }
-
-    .logo {
-        font-size: 1.5rem;
-    }
-
-    .theme-toggle {
-        width: 45px;
-        height: 45px;
-        font-size: 1.3rem;
-    }
-
-    .contact-details p,
-    .contact-details a {
-        font-size: 0.95rem;
-    }
-
-    .contact-icon {
-        font-size: 1.5rem;
-    }
-
-    .contact-item {
-        padding: 1rem;
-        gap: 0.8rem;
-    }
-
-    .btn {
-        min-height: 44px;
-        padding: 0.9rem 1.5rem;
-        font-size: 1rem;
-    }
-
-    .image-container {
-        width: 250px;
-        height: 250px;
-    }
-
-    .profile-img {
-        width: 220px;
-        height: 220px;
-    }
-
-    #scroll-to-top {
-        width: 50px;
-        height: 50px;
-        bottom: 20px;
-        right: 20px;
-    }
-
-    section {
-        padding: 3rem 4%;
-    }
-
-    /* AMÉLIORATION ULTRA-MOBILE DU GRAPHIQUE */
-    .graph-wrapper {
-        height: 320px; /* Plus d'espace vertical */
-        padding: 1.5rem 1rem;
-    }
-    
-    .graph-bars {
-        gap: 0.3rem;
-        padding: 0 0.2rem;
-    }
-    
-    .bar-container {
-        width: 23%; /* Pourcentage pour s'adapter */
-        min-width: 55px;
-    }
-    
-    .bar {
-        width: 70%; /* Un peu plus étroit pour laisser de l'espace */
-        max-width: 35px;
-    }
-    
-    .bar-label {
-        font-size: 0.8rem;
-        margin-top: 0.8rem;
-        line-height: 1.2;
-    }
-    
-    .bar-value {
-        font-size: 0.75rem;
-        min-width: 45px;
-        top: -30px;
-        padding: 3px 6px;
-    }
-    
-    .graph-title {
-        font-size: 1rem;
-        line-height: 1.3;
-    }
-    
-    .graph-scale {
-        font-size: 0.8rem;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 0.3rem;
-    }
-    
-    .disc-container {
-        gap: 1.5rem;
-    }
-    
-    .legend-text h4 {
-        font-size: 1.1rem;
-    }
-    
-    .legend-text p {
-        font-size: 0.85rem;
-    }
-}
-        .sparkle {
-            position: fixed;
-            pointer-events: none;
-            animation: sparkleAnim 1s forwards;
-            z-index: 9999;
-        }
-
-        @keyframes sparkleAnim {
-            0% {
-                transform: scale(0) rotate(0deg);
-                opacity: 1;
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
             }
 
-            100% {
-                transform: scale(1.5) rotate(180deg);
-                opacity: 0;
-            }
-        }
-
-        .ripple {
-            position: absolute;
-            border-radius: 50%;
-            border: 2px solid var(--blue-main);
-            animation: rippleEffect 1s ease-out forwards;
-            pointer-events: none;
-        }
-
-        @keyframes rippleEffect {
-            from {
-                width: 0;
-                height: 0;
-                opacity: 1;
+            .hero-greeting {
+                font-size: 1.1rem;
             }
 
-            to {
-                width: 100px;
-                height: 100px;
-                opacity: 0;
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            nav {
+                padding: 1rem 4%;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .theme-toggle {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+
+            .contact-details p,
+            .contact-details a {
+                font-size: 0.95rem;
+            }
+
+            .contact-icon {
+                font-size: 1.5rem;
+            }
+
+            .contact-item {
+                padding: 1rem;
+                gap: 0.8rem;
+            }
+
+            .btn {
+                min-height: 44px;
+                padding: 0.9rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            .image-container {
+                width: 250px;
+                height: 250px;
+            }
+
+            .profile-img {
+                width: 220px;
+                height: 220px;
+            }
+
+            #scroll-to-top {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                right: 20px;
+            }
+
+            section {
+                padding: 3rem 4%;
+            }
+
+            /* AMÉLIORATION ULTRA-MOBILE DU GRAPHIQUE */
+            .graph-wrapper {
+                height: 320px;
+                padding: 1.5rem 1rem;
+            }
+            
+            .graph-bars {
+                gap: 0.3rem;
+                padding: 0 0.2rem;
+            }
+            
+            .bar-container {
+                width: 23%;
+                min-width: 55px;
+            }
+            
+            .bar {
+                width: 70%;
+                max-width: 35px;
+            }
+            
+            .bar-label {
+                font-size: 0.8rem;
+                margin-top: 0.8rem;
+                line-height: 1.2;
+            }
+            
+            .bar-value {
+                font-size: 0.75rem;
+                min-width: 45px;
+                top: -30px;
+                padding: 3px 6px;
+            }
+            
+            .graph-title {
+                font-size: 1rem;
+                line-height: 1.3;
+            }
+            
+            .graph-scale {
+                font-size: 0.8rem;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.3rem;
+            }
+            
+            .disc-container {
+                gap: 1.5rem;
+            }
+            
+            .legend-text h4 {
+                font-size: 1.1rem;
+            }
+            
+            .legend-text p {
+                font-size: 0.85rem;
             }
         }
     </style>
@@ -2093,7 +2011,6 @@
             <ul class="nav-links">
                 <li><a href="#accueil" class="nav-link">Accueil</a></li>
                 <li><a href="#apropos" class="nav-link">À propos</a></li>
-                
                 <li><a href="#parcours" class="nav-link">Parcours</a></li>
                 <li><a href="#analyse" class="nav-link">Analyse</a></li>
                 <li><a href="#competences" class="nav-link">Compétences</a></li>
@@ -2153,12 +2070,10 @@
                 </div>
 
                 <div class="graph-bars">
-
-
                     <!-- Barres -->
                     <div class="bar-container" data-value="54.54">
                         <div class="bar-height">
-                            <div class="bar red" style="height: 0%;"></div>
+                            <div class="bar red"></div>
                             <div class="bar-value">54.54%</div>
                         </div>
                         <div class="bar-label">Rouge</div>
@@ -2166,7 +2081,7 @@
 
                     <div class="bar-container" data-value="0">
                         <div class="bar-height">
-                            <div class="bar yellow" style="height: 0%;"></div>
+                            <div class="bar yellow"></div>
                             <div class="bar-value">0%</div>
                         </div>
                         <div class="bar-label">Jaune</div>
@@ -2174,7 +2089,7 @@
 
                     <div class="bar-container" data-value="9.09">
                         <div class="bar-height">
-                            <div class="bar green" style="height: 0%;"></div>
+                            <div class="bar green"></div>
                             <div class="bar-value">9.09%</div>
                         </div>
                         <div class="bar-label">Vert</div>
@@ -2182,7 +2097,7 @@
 
                     <div class="bar-container" data-value="36.36">
                         <div class="bar-height">
-                            <div class="bar blue" style="height: 0%;"></div>
+                            <div class="bar blue"></div>
                             <div class="bar-value">36.36%</div>
                         </div>
                         <div class="bar-label">Bleu</div>
@@ -2365,9 +2280,6 @@
         </div>
     </section>
 
-
-
-
     <section id="apropos">
         <h2 class="section-title">À Propos de Moi</h2>
         <p class="section-subtitle">Mon parcours, mes valeurs, ma vision</p>
@@ -2392,14 +2304,13 @@
         <h2 class="section-title">Mon Parcours</h2>
         <p class="section-subtitle">Les étapes clés de mon développement professionnel</p>
         <div class="timeline">
-
             <div class="timeline-item">
                 <div class="timeline-content">
                     <div class="timeline-year">2024 - Présent</div>
                     <div class="timeline-title">Licence en Comptabilité</div>
                     <div class="timeline-description">
                         ISCAE - 2ème année - Spécialisation en comptabilité et administration des entreprises avec un
-                        focus sur la comptabilité et la fiscalité .
+                        focus sur la comptabilité et la fiscalité.
                     </div>
                 </div>
                 <div class="timeline-dot"></div>
@@ -2428,7 +2339,6 @@
                 <ul class="skill-list">
                     <li>Comptabilité générale</li>
                     <li>Analyse financière</li>
-                
                     <li>Fiscalité</li>
                 </ul>
             </div>
@@ -2455,7 +2365,7 @@
         </div>
     </section>
 
-        <section id="competences-developper">
+    <section id="competences-developper">
         <h2 class="section-title">Compétences à développer</h2>
         <p class="section-subtitle">Domaines sur lesquels je me concentre actuellement</p>
         <div class="skills-grid">
@@ -2521,12 +2431,14 @@
     <div id="scroll-to-top"></div>
 
     <script>
+        // Gestion de l'écran de chargement
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.getElementById('loading-screen').classList.add('hidden');
             }, 1000);
         });
 
+        // Barre de progression du scroll
         function updateScrollProgress() {
             const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
             const scrolled = (window.scrollY / windowHeight) * 100;
@@ -2535,6 +2447,7 @@
 
         window.addEventListener('scroll', updateScrollProgress);
 
+        // Navigation scroll
         let lastScrollTop = 0;
         const navbar = document.querySelector('nav');
 
@@ -2556,6 +2469,7 @@
             lastScrollTop = scrollTop;
         });
 
+        // Mise en surbrillance des sections actives
         const sections = document.querySelectorAll('section');
         const navLinks = document.querySelectorAll('.nav-link');
 
@@ -2580,6 +2494,7 @@
 
         window.addEventListener('scroll', highlightActiveSection);
 
+        // Navigation smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -2595,6 +2510,7 @@
             });
         });
 
+        // Menu hamburger
         const hamburger = document.getElementById('hamburger');
         const navLinks2 = document.querySelector('.nav-links');
 
@@ -2603,6 +2519,7 @@
             navLinks2.classList.toggle('active');
         });
 
+        // Thème clair/sombre
         const themeToggle = document.getElementById('theme-toggle');
         const html = document.documentElement;
 
@@ -2619,6 +2536,7 @@
             themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
         });
 
+        // Bouton retour en haut
         const scrollToTopBtn = document.getElementById('scroll-to-top');
 
         window.addEventListener('scroll', () => {
@@ -2636,25 +2554,7 @@
             });
         });
 
-        function animateCounter(element) {
-            const target = parseInt(element.getAttribute('data-target'));
-            const duration = 2000;
-            const increment = target / (duration / 16);
-            let current = 0;
-
-            const updateCounter = () => {
-                current += increment;
-                if (current < target) {
-                    element.textContent = Math.floor(current);
-                    requestAnimationFrame(updateCounter);
-                } else {
-                    element.textContent = target;
-                }
-            };
-
-            updateCounter();
-        }
-
+        // Effets visuels
         document.addEventListener('mousemove', (e) => {
             if (Math.random() > 0.92) {
                 const sparkle = document.createElement('div');
@@ -2685,36 +2585,29 @@
             setTimeout(() => ripple.remove(), 1000);
         });
 
+        // Animation des éléments au scroll
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -100px 0px'
         };
-
-        let statsAnimated = false;
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.style.opacity = '1';
                     entry.target.style.transform = 'translateY(0)';
-
-                    if (entry.target.classList.contains('stat-card') && !statsAnimated) {
-                        statsAnimated = true;
-                        document.querySelectorAll('.stat-number').forEach(counter => {
-                            animateCounter(counter);
-                        });
-                    }
                 }
             });
         }, observerOptions);
 
-        document.querySelectorAll('.skill-card, .about-content, .contact-content, .stat-card, .timeline-content , .analysis-card').forEach(el => {
+        document.querySelectorAll('.skill-card, .about-content, .contact-content, .stat-card, .timeline-content, .analysis-card').forEach(el => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(30px)';
             el.style.transition = 'all 0.8s ease-out';
             observer.observe(el);
         });
 
+        // Animation des formes flottantes
         document.addEventListener('mousemove', (e) => {
             const shapes = document.querySelectorAll('.shape');
             const mouseX = e.clientX / window.innerWidth;
@@ -2728,6 +2621,7 @@
             });
         });
 
+        // Animation du titre
         const heroTitle = document.querySelector('.hero-title');
         const text = heroTitle.textContent;
         heroTitle.textContent = '';
@@ -2743,171 +2637,57 @@
 
         setTimeout(typeWriter, 1500);
 
-        function createDISCChart() {
-            // Données du graphique
+        // Animation du graphique DISC
+        function animateBars() {
+            const bars = document.querySelectorAll('.bar');
+            const values = document.querySelectorAll('.bar-value');
+            
             const data = [
-                { value: 54.54, color: 'red', label: 'Rouge' },
-                { value: 0, color: 'yellow', label: 'Jaune' },
-                { value: 9.09, color: 'green', label: 'Vert' },
-                { value: 36.36, color: 'blue', label: 'Bleu' }
+                { value: 54.54, color: 'red' },
+                { value: 0, color: 'yellow' },
+                { value: 9.09, color: 'green' },
+                { value: 36.36, color: 'blue' }
             ];
 
-            // Animation fluide des barres
-            const bars = document.querySelectorAll('.bar');
-            const barContainers = document.querySelectorAll('.bar-container');
-
             bars.forEach((bar, index) => {
-                const value = data[index].value;
-                const height = Math.min(value, 100); // Limiter à 100%
-
-                // Animation avec délai progressif
                 setTimeout(() => {
-                    bar.style.height = `${height}%`;
-                    bar.style.transition = 'height 1.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
-                }, index * 300);
-
-                // Effet de brillance lors de l'animation
-                setTimeout(() => {
-                    bar.style.boxShadow = '0 -4px 20px rgba(255, 255, 255, 0.4)';
-                    setTimeout(() => {
-                        bar.style.boxShadow = '0 -4px 10px rgba(0, 0, 0, 0.1)';
-                    }, 1000);
-                }, index * 300 + 500);
-            });
-
-            // Effet au survol
-            barContainers.forEach(container => {
-                const bar = container.querySelector('.bar');
-                const value = container.querySelector('.bar-value');
-
-                container.addEventListener('mouseenter', () => {
-                    bar.style.transform = 'scale(1.05)';
-                    bar.style.filter = 'brightness(1.1)';
-                    if (value) value.style.opacity = '1';
-                });
-
-                container.addEventListener('mouseleave', () => {
-                    bar.style.transform = 'scale(1)';
-                    bar.style.filter = 'brightness(1)';
-                    if (value) value.style.opacity = '0';
-                });
-            });
-
-            // Animation des valeurs
-            const barValues = document.querySelectorAll('.bar-value');
-            barValues.forEach((valueElement, index) => {
-                const finalValue = data[index].value;
-                let current = 0;
-                const increment = finalValue / 50; // 50 étapes d'animation
-
-                const animateValue = () => {
-                    if (current < finalValue) {
-                        current += increment;
-                        valueElement.textContent = `${current.toFixed(2)}%`;
-                        requestAnimationFrame(animateValue);
-                    } else {
-                        valueElement.textContent = `${finalValue}%`;
-                    }
-                };
-
-                setTimeout(animateValue, index * 300);
+                    const targetHeight = Math.min(data[index].value, 100);
+                    bar.style.height = `${targetHeight}%`;
+                    
+                    // Animation des valeurs
+                    let current = 0;
+                    const target = data[index].value;
+                    const increment = target / 30;
+                    
+                    const animateValue = () => {
+                        if (current < target) {
+                            current += increment;
+                            values[index].textContent = `${current.toFixed(2)}%`;
+                            setTimeout(animateValue, 30);
+                        } else {
+                            values[index].textContent = `${target}%`;
+                        }
+                    };
+                    
+                    setTimeout(animateValue, 300);
+                }, index * 400);
             });
         }
 
-        // Initialiser le graphique
-        document.addEventListener('DOMContentLoaded', function () {
-            setTimeout(createDISCChart, 1000);
-        });
-
-        // Fonction pour animer le graphique DISC
-function animateDISCChart() {
-    const barContainers = document.querySelectorAll('.bar-container');
-    
-    barContainers.forEach((container, index) => {
-        const bar = container.querySelector('.bar');
-        const valueElement = container.querySelector('.bar-value');
-        const dataValue = parseFloat(container.getAttribute('data-value') || '0');
-        
-        // Animation avec délai progressif
-        setTimeout(() => {
-            // Animation de la hauteur
-            bar.style.height = `${dataValue}%`;
-            bar.style.transition = 'height 1.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
-            
-            // Animation de la valeur numérique
-            let current = 0;
-            const increment = dataValue / 50;
-            const duration = 1500;
-            const steps = 50;
-            const stepDuration = duration / steps;
-            
-            const animateValue = () => {
-                current += increment;
-                if (current <= dataValue) {
-                    valueElement.textContent = `${current.toFixed(2)}%`;
-                    setTimeout(animateValue, stepDuration);
-                } else {
-                    valueElement.textContent = `${dataValue}%`;
+        // Observer pour déclencher l'animation du graphique
+        const statsSection = document.getElementById('stats');
+        const chartObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    setTimeout(animateBars, 300);
+                    chartObserver.unobserve(entry.target);
                 }
-            };
-            
-            animateValue();
-            
-            // Effet visuel
-            bar.style.boxShadow = '0 -4px 20px rgba(255, 255, 255, 0.4)';
-            setTimeout(() => {
-                bar.style.boxShadow = '0 -4px 10px rgba(0, 0, 0, 0.1)';
-            }, 1000);
-            
-        }, index * 300);
-    });
-}
+            });
+        }, { threshold: 0.3 });
 
-// Observer pour déclencher l'animation quand la section est visible
-const statsSection = document.getElementById('stats');
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            setTimeout(() => {
-                animateDISCChart();
-            }, 500);
-            observer.unobserve(entry.target); // Ne déclencher qu'une fois
+        if (statsSection) {
+            chartObserver.observe(statsSection);
         }
-    });
-}, { threshold: 0.3 });
-
-if (statsSection) {
-    observer.observe(statsSection);
-} else {
-    // Fallback si la section n'est pas trouvée
-    setTimeout(() => {
-        animateDISCChart();
-    }, 1000);
-}
-
-// Réinitialiser les barres au rechargement pour permettre la réanimation
-window.addEventListener('beforeunload', () => {
-    document.querySelectorAll('.bar').forEach(bar => {
-        bar.style.height = '0%';
-    });
-});
-
-// Gérer le rechargement de la page
-window.addEventListener('load', () => {
-    // Réinitialiser les barres
-    document.querySelectorAll('.bar').forEach(bar => {
-        bar.style.height = '0%';
-        bar.style.transition = 'none';
-    });
-    
-    // Forcer un reflow pour réinitialiser l'animation
-    setTimeout(() => {
-        document.querySelectorAll('.bar').forEach(bar => {
-            bar.style.transition = 'height 1.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
-        });
-    }, 100);
-});
     </script>
 </body>
-
 </html>
