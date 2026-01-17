@@ -2818,6 +2818,95 @@
         document.addEventListener('DOMContentLoaded', function () {
             setTimeout(createDISCChart, 1000);
         });
+
+        // Fonction pour animer le graphique DISC
+function animateDISCChart() {
+    const barContainers = document.querySelectorAll('.bar-container');
+    
+    barContainers.forEach((container, index) => {
+        const bar = container.querySelector('.bar');
+        const valueElement = container.querySelector('.bar-value');
+        const dataValue = parseFloat(container.getAttribute('data-value') || '0');
+        
+        // Animation avec délai progressif
+        setTimeout(() => {
+            // Animation de la hauteur
+            bar.style.height = `${dataValue}%`;
+            bar.style.transition = 'height 1.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+            
+            // Animation de la valeur numérique
+            let current = 0;
+            const increment = dataValue / 50;
+            const duration = 1500;
+            const steps = 50;
+            const stepDuration = duration / steps;
+            
+            const animateValue = () => {
+                current += increment;
+                if (current <= dataValue) {
+                    valueElement.textContent = `${current.toFixed(2)}%`;
+                    setTimeout(animateValue, stepDuration);
+                } else {
+                    valueElement.textContent = `${dataValue}%`;
+                }
+            };
+            
+            animateValue();
+            
+            // Effet visuel
+            bar.style.boxShadow = '0 -4px 20px rgba(255, 255, 255, 0.4)';
+            setTimeout(() => {
+                bar.style.boxShadow = '0 -4px 10px rgba(0, 0, 0, 0.1)';
+            }, 1000);
+            
+        }, index * 300);
+    });
+}
+
+// Observer pour déclencher l'animation quand la section est visible
+const statsSection = document.getElementById('stats');
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            setTimeout(() => {
+                animateDISCChart();
+            }, 500);
+            observer.unobserve(entry.target); // Ne déclencher qu'une fois
+        }
+    });
+}, { threshold: 0.3 });
+
+if (statsSection) {
+    observer.observe(statsSection);
+} else {
+    // Fallback si la section n'est pas trouvée
+    setTimeout(() => {
+        animateDISCChart();
+    }, 1000);
+}
+
+// Réinitialiser les barres au rechargement pour permettre la réanimation
+window.addEventListener('beforeunload', () => {
+    document.querySelectorAll('.bar').forEach(bar => {
+        bar.style.height = '0%';
+    });
+});
+
+// Gérer le rechargement de la page
+window.addEventListener('load', () => {
+    // Réinitialiser les barres
+    document.querySelectorAll('.bar').forEach(bar => {
+        bar.style.height = '0%';
+        bar.style.transition = 'none';
+    });
+    
+    // Forcer un reflow pour réinitialiser l'animation
+    setTimeout(() => {
+        document.querySelectorAll('.bar').forEach(bar => {
+            bar.style.transition = 'height 1.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+        });
+    }, 100);
+});
     </script>
 </body>
 
