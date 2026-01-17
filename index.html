@@ -104,6 +104,7 @@
             0% {
                 transform: rotate(0deg);
             }
+
             100% {
                 transform: rotate(360deg);
             }
@@ -182,15 +183,20 @@
         }
 
         @keyframes float {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: translateY(0) rotate(0deg) scale(1);
             }
+
             25% {
                 transform: translateY(-30px) rotate(90deg) scale(1.1);
             }
+
             50% {
                 transform: translateY(0) rotate(180deg) scale(1);
             }
+
             75% {
                 transform: translateY(30px) rotate(270deg) scale(0.9);
             }
@@ -226,6 +232,7 @@
                 transform: translateY(-100%);
                 opacity: 0;
             }
+
             to {
                 transform: translateY(0);
                 opacity: 1;
@@ -253,9 +260,12 @@
         }
 
         @keyframes shimmer {
-            0%, 100% {
+
+            0%,
+            100% {
                 filter: hue-rotate(0deg) brightness(1);
             }
+
             50% {
                 filter: hue-rotate(20deg) brightness(1.2);
             }
@@ -372,6 +382,7 @@
                 opacity: 0;
                 transform: translateX(-50px);
             }
+
             to {
                 opacity: 1;
                 transform: translateX(0);
@@ -390,6 +401,7 @@
             from {
                 opacity: 0;
             }
+
             to {
                 opacity: 1;
             }
@@ -494,6 +506,7 @@
                 opacity: 0;
                 transform: translateX(50px);
             }
+
             to {
                 opacity: 1;
                 transform: translateX(0);
@@ -517,11 +530,14 @@
         }
 
         @keyframes pulse {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: scale(1);
                 opacity: 0.3;
                 box-shadow: 0 0 0 0 rgba(30, 136, 229, 0.7);
             }
+
             50% {
                 transform: scale(1.1);
                 opacity: 0.5;
@@ -549,9 +565,12 @@
         }
 
         @keyframes floatImage {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: translateY(0);
             }
+
             50% {
                 transform: translateY(-20px);
             }
@@ -583,6 +602,7 @@
                 opacity: 0;
                 transform: translateY(30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -821,9 +841,12 @@
         }
 
         @keyframes bounce {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: translateY(0);
             }
+
             50% {
                 transform: translateY(-10px);
             }
@@ -837,6 +860,7 @@
             from {
                 transform: rotate(0deg);
             }
+
             to {
                 transform: rotate(360deg);
             }
@@ -1097,7 +1121,6 @@
             position: relative;
         }
 
-        /* MODIFICATION IMPORTANTE ICI */
         .bar {
             width: 40px;
             border-radius: 8px 8px 0 0;
@@ -1106,9 +1129,9 @@
             box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
             background: linear-gradient(to top, currentColor, rgba(255, 255, 255, 0.3));
             height: 0%;
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
+            min-height: 0;
+            display: block;
+            visibility: visible;
         }
 
         .bar.red {
@@ -1249,32 +1272,34 @@
         }
 
         /* Attribution des zones de la grille */
-        .red-card { 
-            grid-area: rouge; 
+        .red-card {
+            grid-area: rouge;
             height: 100%;
         }
 
-        .blue-card { 
-            grid-area: bleu; 
+        .blue-card {
+            grid-area: bleu;
             height: 100%;
         }
 
-        .special-card { 
-            grid-area: synthèse; 
+        .special-card {
+            grid-area: synthèse;
         }
 
-        .dev-card { 
-            grid-area: dev; 
+        .dev-card {
+            grid-area: dev;
         }
 
         /* Ajuster les hauteurs pour uniformité */
-        .red-card, .blue-card {
+        .red-card,
+        .blue-card {
             min-height: 420px;
             display: flex;
             flex-direction: column;
         }
 
-        .special-card, .dev-card {
+        .special-card,
+        .dev-card {
             min-height: 320px;
         }
 
@@ -1285,10 +1310,21 @@
             animation: fadeInUp 0.8s ease forwards;
         }
 
-        .red-card { animation-delay: 0.1s; }
-        .blue-card { animation-delay: 0.2s; }
-        .special-card { animation-delay: 0.3s; }
-        .dev-card { animation-delay: 0.4s; }
+        .red-card {
+            animation-delay: 0.1s;
+        }
+
+        .blue-card {
+            animation-delay: 0.2s;
+        }
+
+        .special-card {
+            animation-delay: 0.3s;
+        }
+
+        .dev-card {
+            animation-delay: 0.4s;
+        }
 
         @keyframes fadeInUp {
             to {
@@ -1513,6 +1549,7 @@
                 transform: scale(0) rotate(0deg);
                 opacity: 1;
             }
+
             100% {
                 transform: scale(1.5) rotate(180deg);
                 opacity: 0;
@@ -1533,6 +1570,7 @@
                 height: 0;
                 opacity: 1;
             }
+
             to {
                 width: 100px;
                 height: 100px;
@@ -1551,8 +1589,9 @@
                     "dev";
                 gap: 2rem;
             }
-            
-            .red-card, .blue-card {
+
+            .red-card,
+            .blue-card {
                 min-height: 380px;
             }
         }
@@ -1561,11 +1600,12 @@
             .analysis-card {
                 padding: 1.5rem;
             }
-            
-            .red-card, .blue-card {
+
+            .red-card,
+            .blue-card {
                 min-height: 360px;
             }
-            
+
             .analysis-title h3 {
                 font-size: 1.2rem;
             }
@@ -1575,12 +1615,14 @@
             #analyse {
                 padding: 4rem 5%;
             }
-            
-            .red-card, .blue-card {
+
+            .red-card,
+            .blue-card {
                 min-height: 340px;
             }
-            
-            .special-card, .dev-card {
+
+            .special-card,
+            .dev-card {
                 min-height: 300px;
             }
         }
@@ -1671,8 +1713,6 @@
 
             .bar {
                 width: 35px;
-                /* AJOUT IMPORTANT POUR MOBILE */
-                min-height: 10px !important;
             }
 
             .bar-value {
@@ -1711,33 +1751,72 @@
                 padding: 2rem;
             }
 
-            .graph-wrapper {
-                padding: 1.5rem;
-                height: 320px;
+            /* AMÉLIORATION DU GRAPHIQUE POUR MOBILE */
+            .disc-container {
+                gap: 2rem;
             }
 
-            .legend-item {
-                padding: 1.2rem;
+            .graph-wrapper {
+                padding: 1.5rem;
+                height: 350px;
+                max-width: 100%;
+                overflow: hidden;
+            }
+
+            .graph-bars {
+                justify-content: space-between;
+                padding: 0 0.5rem;
+                gap: 0.5rem;
             }
 
             .bar-container {
-                width: 55px;
+                width: 22%;
+                min-width: 65px;
             }
 
             .bar {
-                width: 30px;
-                min-height: 10px !important;
-                height: 0%;
+                width: 80%;
+                max-width: 40px;
+                margin: 0 auto;
+                display: block !important;
+                visibility: visible !important;
+                min-height: 10px;
             }
 
             .bar-label {
-                font-size: 0.8rem;
+                font-size: 0.9rem;
+                font-weight: 600;
+                text-align: center;
+                margin-top: 1rem;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .bar-value {
+                font-size: 0.85rem;
+                min-width: 50px;
+                top: -35px;
+                padding: 4px 8px;
             }
 
             .graph-header {
                 flex-direction: column;
                 gap: 1rem;
                 text-align: center;
+                margin-bottom: 2rem;
+            }
+
+            .graph-title {
+                font-size: 1.1rem;
+            }
+
+            .graph-scale {
+                font-size: 0.9rem;
+            }
+
+            .legend-item {
+                padding: 1.2rem;
             }
         }
 
@@ -1904,93 +1983,95 @@
                 height: 320px;
                 padding: 1.5rem 1rem;
             }
-            
+
             .graph-bars {
                 gap: 0.3rem;
                 padding: 0 0.2rem;
             }
-            
+
             .bar-container {
                 width: 23%;
                 min-width: 55px;
             }
-            
+
             .bar {
                 width: 70%;
                 max-width: 35px;
-                min-height: 8px !important;
-                height: 0%;
+                display: block !important;
+                visibility: visible !important;
+                min-height: 10px;
             }
-            
+
             .bar-label {
                 font-size: 0.8rem;
                 margin-top: 0.8rem;
                 line-height: 1.2;
             }
-            
+
             .bar-value {
                 font-size: 0.75rem;
                 min-width: 45px;
                 top: -30px;
                 padding: 3px 6px;
             }
-            
+
             .graph-title {
                 font-size: 1rem;
                 line-height: 1.3;
             }
-            
+
             .graph-scale {
                 font-size: 0.8rem;
                 flex-wrap: wrap;
                 justify-content: center;
                 gap: 0.3rem;
             }
-            
+
             .disc-container {
                 gap: 1.5rem;
             }
-            
+
             .legend-text h4 {
                 font-size: 1.1rem;
             }
-            
+
             .legend-text p {
                 font-size: 0.85rem;
             }
         }
-        /* FORCE D'AFFICHAGE DES BARRES - PRIORITÉ MAXIMALE */
-.bar {
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    min-height: 5px !important;
-    height: 0% !important;
-}
 
-/* Sur mobile, garantissez que les barres soient visibles */
-@media (max-width: 768px) {
-    .bar {
-        min-height: 10px !important;
-        background: linear-gradient(to top, currentColor, rgba(255, 255, 255, 0.3)) !important;
-    }
-    
-    .bar.red {
-        background: linear-gradient(to top, #FF6B6B, #FF9E9E) !important;
-    }
-    
-    .bar.yellow {
-        background: linear-gradient(to top, #FFD93D, #FFE98C) !important;
-    }
-    
-    .bar.green {
-        background: linear-gradient(to top, #6BCF7F, #A3E7B0) !important;
-    }
-    
-    .bar.blue {
-        background: linear-gradient(to top, #4D96FF, #8BB8FF) !important;
-    }
-}
+        /* Forcer l'affichage des barres - avec hauteurs par défaut */
+        @media (max-width: 768px) {
+            .bar {
+                display: block !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+                min-height: 15px !important;
+            }
+
+            /* Hauteurs par défaut si JavaScript échoue */
+            .bar.red {
+                background: linear-gradient(to top, #FF6B6B, #FF9E9E) !important;
+                height: 54.54% !important;
+            }
+
+            .bar.yellow {
+                background: linear-gradient(to top, #FFD93D, #FFE98C) !important;
+                height: 5% !important;
+                min-height: 10px !important;
+            }
+
+            .bar.green {
+                background: linear-gradient(to top, #6BCF7F, #A3E7B0) !important;
+                height: 9.09% !important;
+                min-height: 15px !important;
+            }
+
+            .bar.blue {
+                background: linear-gradient(to top, #4D96FF, #8BB8FF) !important;
+                height: 36.36% !important;
+            }
+        }
     </style>
 </head>
 
@@ -2435,267 +2516,378 @@
     <div id="scroll-to-top"></div>
 
     <script>
-    // Écran de chargement
-    setTimeout(() => {
-        document.getElementById('loading-screen').classList.add('hidden');
-    }, 1000);
-
-    // Barre de progression
-    window.addEventListener('scroll', () => {
-        const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrolled = (window.scrollY / windowHeight) * 100;
-        document.getElementById('scroll-progress').style.width = scrolled + '%';
-    });
-
-    // Navigation
-    let lastScrollTop = 0;
-    const navbar = document.querySelector('nav');
-
-    window.addEventListener('scroll', () => {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-        if (scrollTop > 100) navbar.classList.add('scrolled');
-        else navbar.classList.remove('scrolled');
-
-        if (scrollTop > lastScrollTop && scrollTop > 200) navbar.classList.add('hidden');
-        else navbar.classList.remove('hidden');
-
-        lastScrollTop = scrollTop;
-    });
-
-    // Navigation active
-    const sections = document.querySelectorAll('section');
-    const navLinks = document.querySelectorAll('.nav-link');
-
-    window.addEventListener('scroll', () => {
-        const scrollPos = window.scrollY + 200;
-
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
-            const sectionId = section.getAttribute('id');
-
-            if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${sectionId}`) {
-                        link.classList.add('active');
-                    }
-                });
-            }
-        });
-    });
-
-    // Smooth scroll
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-                document.querySelector('.nav-links').classList.remove('active');
-                document.getElementById('hamburger').classList.remove('active');
-            }
-        });
-    });
-
-    // Menu hamburger
-    const hamburger = document.getElementById('hamburger');
-    const navLinks2 = document.querySelector('.nav-links');
-
-    hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('active');
-        navLinks2.classList.toggle('active');
-    });
-
-    // Thème
-    const themeToggle = document.getElementById('theme-toggle');
-    const html = document.documentElement;
-
-    const currentTheme = localStorage.getItem('theme') || 'light';
-    html.setAttribute('data-theme', currentTheme);
-    themeToggle.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
-
-    themeToggle.addEventListener('click', () => {
-        const currentTheme = html.getAttribute('data-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
-        html.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-        themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
-    });
-
-    // Bouton retour en haut
-    const scrollToTopBtn = document.getElementById('scroll-to-top');
-
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 500) scrollToTopBtn.classList.add('visible');
-        else scrollToTopBtn.classList.remove('visible');
-    });
-
-    scrollToTopBtn.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-    // Effets visuels
-    document.addEventListener('mousemove', (e) => {
-        if (Math.random() > 0.92) {
-            const sparkle = document.createElement('div');
-            sparkle.className = 'sparkle';
-            sparkle.style.left = e.pageX + 'px';
-            sparkle.style.top = e.pageY + 'px';
-            sparkle.style.width = '12px';
-            sparkle.style.height = '12px';
-            sparkle.style.background = ['#42A5F5', '#1E88E5', '#90CAF9', '#64B5F6'][Math.floor(Math.random() * 4)];
-            sparkle.style.borderRadius = '50%';
-            sparkle.style.boxShadow = '0 0 10px rgba(66, 165, 245, 0.8)';
-            document.body.appendChild(sparkle);
-            setTimeout(() => sparkle.remove(), 1000);
-        }
-    });
-
-    // Animation des éléments au scroll
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -100px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, observerOptions);
-
-    document.querySelectorAll('.skill-card, .about-content, .contact-content, .stat-card, .timeline-content, .analysis-card').forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'all 0.8s ease-out';
-        observer.observe(el);
-    });
-
-    // Animation du titre
-    const heroTitle = document.querySelector('.hero-title');
-    const text = heroTitle.textContent;
-    heroTitle.textContent = '';
-    let i = 0;
-
-    function typeWriter() {
-        if (i < text.length) {
-            heroTitle.textContent += text.charAt(i);
-            i++;
-            setTimeout(typeWriter, 100);
-        }
-    }
-
-    setTimeout(typeWriter, 1500);
-
-    // ============================================
-    // SOLUTION DÉFINITIVE POUR LES BARRES SUR MOBILE
-    // ============================================
-
-    // Fonction SIMPLE et FIABLE pour animer les barres
-    function animateBarsSimple() {
-        console.log("Animation des barres démarrée");
-        
-        // Données des barres dans l'ordre: Rouge, Jaune, Vert, Bleu
-        const bars = [
-            { element: '.bar.red', value: 54.54 },
-            { element: '.bar.yellow', value: 0 },
-            { element: '.bar.green', value: 9.09 },
-            { element: '.bar.blue', value: 36.36 }
-        ];
-
-        bars.forEach((bar, index) => {
+        // Gestion de l'écran de chargement
+        window.addEventListener('load', () => {
             setTimeout(() => {
-                const barElement = document.querySelector(bar.element);
-                if (barElement) {
-                    // FORCE l'affichage - important pour mobile
-                    barElement.style.display = 'block';
-                    barElement.style.visibility = 'visible';
-                    barElement.style.opacity = '1';
-                    
-                    // Animation de la hauteur
-                    barElement.style.height = bar.value + '%';
-                    barElement.style.transition = 'height 1.5s ease';
-                    
-                    // Animation de la valeur
-                    const valueElement = barElement.parentElement.querySelector('.bar-value');
-                    if (valueElement) {
-                        let current = 0;
-                        const increment = bar.value / 30;
-                        
-                        const animateValue = () => {
-                            current += increment;
-                            if (current <= bar.value) {
-                                valueElement.textContent = current.toFixed(2) + '%';
-                                setTimeout(animateValue, 50);
-                            } else {
-                                valueElement.textContent = bar.value + '%';
-                            }
-                        };
-                        
-                        animateValue();
-                    }
-                    
-                    console.log(`Barre ${index} animée: ${bar.value}%`);
-                }
-            }, index * 400);
+                document.getElementById('loading-screen').classList.add('hidden');
+            }, 1000);
         });
-    }
 
-    // DÉMARRAGE IMMÉDIAT - sans observer
-    // Attendre que le DOM soit chargé
-    document.addEventListener('DOMContentLoaded', function() {
-        console.log("DOM chargé - démarrage de l'animation");
-        
-        // Animer immédiatement après 1 seconde
-        setTimeout(animateBarsSimple, 1000);
-        
-        // Fallback après 3 secondes
-        setTimeout(() => {
-            const bars = document.querySelectorAll('.bar');
-            let anyVisible = false;
-            bars.forEach(bar => {
-                if (bar.style.height !== '0%') anyVisible = true;
-            });
-            
-            if (!anyVisible) {
-                console.log("Fallback - réanimation des barres");
-                animateBarsSimple();
+        // Barre de progression du scroll
+        function updateScrollProgress() {
+            const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (window.scrollY / windowHeight) * 100;
+            document.getElementById('scroll-progress').style.width = scrolled + '%';
+        }
+
+        window.addEventListener('scroll', updateScrollProgress);
+
+        // Navigation scroll
+        let lastScrollTop = 0;
+        const navbar = document.querySelector('nav');
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+            if (scrollTop > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
             }
-        }, 3000);
-        
-        // Animer aussi au scroll de la section
-        const statsSection = document.getElementById('stats');
-        if (statsSection) {
-            window.addEventListener('scroll', function() {
-                const rect = statsSection.getBoundingClientRect();
-                const isVisible = (rect.top <= window.innerHeight && rect.bottom >= 0);
-                
-                if (isVisible) {
-                    setTimeout(animateBarsSimple, 500);
-                    // Désactiver après avoir animé
-                    window.removeEventListener('scroll', arguments.callee);
+
+            if (scrollTop > lastScrollTop && scrollTop > 200) {
+                navbar.classList.add('hidden');
+            } else {
+                navbar.classList.remove('hidden');
+            }
+
+            lastScrollTop = scrollTop;
+        });
+
+        // Mise en surbrillance des sections actives
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        function highlightActiveSection() {
+            const scrollPos = window.scrollY + 200;
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+
+                if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${sectionId}`) {
+                            link.classList.add('active');
+                        }
+                    });
                 }
             });
         }
-    });
 
-    // Animer aussi au changement de thème
-    themeToggle.addEventListener('click', function() {
-        setTimeout(animateBarsSimple, 300);
-    });
+        window.addEventListener('scroll', highlightActiveSection);
 
-    // Force l'animation même si le DOM est déjà chargé
-    if (document.readyState === 'complete' || document.readyState === 'interactive') {
-        setTimeout(animateBarsSimple, 1000);
-    }
-</script>
+        // Navigation smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    document.querySelector('.nav-links').classList.remove('active');
+                    document.getElementById('hamburger').classList.remove('active');
+                }
+            });
+        });
+
+        // Menu hamburger
+        const hamburger = document.getElementById('hamburger');
+        const navLinks2 = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks2.classList.toggle('active');
+        });
+
+        // Thème clair/sombre
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        html.setAttribute('data-theme', currentTheme);
+        themeToggle.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+        });
+
+        // Bouton retour en haut
+        const scrollToTopBtn = document.getElementById('scroll-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                scrollToTopBtn.classList.add('visible');
+            } else {
+                scrollToTopBtn.classList.remove('visible');
+            }
+        });
+
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Effets visuels
+        document.addEventListener('mousemove', (e) => {
+            if (Math.random() > 0.92) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = e.pageX + 'px';
+                sparkle.style.top = e.pageY + 'px';
+                sparkle.style.width = '12px';
+                sparkle.style.height = '12px';
+
+                const blues = ['#42A5F5', '#1E88E5', '#90CAF9', '#64B5F6'];
+                sparkle.style.background = blues[Math.floor(Math.random() * blues.length)];
+                sparkle.style.borderRadius = '50%';
+                sparkle.style.boxShadow = '0 0 10px rgba(66, 165, 245, 0.8)';
+                document.body.appendChild(sparkle);
+
+                setTimeout(() => sparkle.remove(), 1000);
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            const ripple = document.createElement('div');
+            ripple.className = 'ripple';
+            ripple.style.left = (e.pageX - 50) + 'px';
+            ripple.style.top = (e.pageY - 50) + 'px';
+            ripple.style.position = 'fixed';
+            document.body.appendChild(ripple);
+
+            setTimeout(() => ripple.remove(), 1000);
+        });
+
+        // Animation des éléments au scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.skill-card, .about-content, .contact-content, .stat-card, .timeline-content, .analysis-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.8s ease-out';
+            observer.observe(el);
+        });
+
+        // Animation des formes flottantes
+        document.addEventListener('mousemove', (e) => {
+            const shapes = document.querySelectorAll('.shape');
+            const mouseX = e.clientX / window.innerWidth;
+            const mouseY = e.clientY / window.innerHeight;
+
+            shapes.forEach((shape, index) => {
+                const speed = (index + 1) * 20;
+                const x = mouseX * speed;
+                const y = mouseY * speed;
+                shape.style.transform = `translate(${x}px, ${y}px)`;
+            });
+        });
+
+        // Animation du titre
+        const heroTitle = document.querySelector('.hero-title');
+        const text = heroTitle.textContent;
+        heroTitle.textContent = '';
+        let i = 0;
+
+        function typeWriter() {
+            if (i < text.length) {
+                heroTitle.textContent += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 100);
+            }
+        }
+
+        setTimeout(typeWriter, 1500);
+
+        // Animation du graphique DISC
+        function animateBars() {
+            const bars = document.querySelectorAll('.bar');
+            const values = document.querySelectorAll('.bar-value');
+
+            const data = [
+                { value: 54.54, color: 'red' },
+                { value: 0, color: 'yellow' },
+                { value: 9.09, color: 'green' },
+                { value: 36.36, color: 'blue' }
+            ];
+
+            bars.forEach((bar, index) => {
+                setTimeout(() => {
+                    const targetHeight = Math.min(data[index].value, 100);
+                    bar.style.height = `${targetHeight}%`;
+
+                    // Animation des valeurs
+                    let current = 0;
+                    const target = data[index].value;
+                    const increment = target / 30;
+
+                    const animateValue = () => {
+                        if (current < target) {
+                            current += increment;
+                            values[index].textContent = `${current.toFixed(2)}%`;
+                            setTimeout(animateValue, 30);
+                        } else {
+                            values[index].textContent = `${target}%`;
+                        }
+                    };
+
+                    setTimeout(animateValue, 300);
+                }, index * 400);
+            });
+        }
+
+        // Observer pour déclencher l'animation du graphique
+        const statsSection = document.getElementById('stats');
+        const chartObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    setTimeout(animateBars, 300);
+                    chartObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+
+        if (statsSection) {
+            chartObserver.observe(statsSection);
+        }
+
+
+        // Animation des barres du graphique DISC
+        function animateDiscBars() {
+            console.log("Animation des barres DISC déclenchée");
+
+            // Données des barres
+            const barData = [
+                { selector: '.bar.red', value: 54.54 },
+                { selector: '.bar.yellow', value: 0 },
+                { selector: '.bar.green', value: 9.09 },
+                { selector: '.bar.blue', value: 36.36 }
+            ];
+
+            barData.forEach((item, index) => {
+                const bar = document.querySelector(item.selector);
+                if (bar) {
+                    // Applique immédiatement une hauteur minimale pour mobile
+                    if (window.innerWidth <= 768) {
+                        bar.style.height = `${item.value}%`;
+                        bar.style.minHeight = '15px';
+                    }
+
+                    setTimeout(() => {
+                        // Force un reflow avant l'animation
+                        bar.offsetHeight;
+
+                        // Applique la hauteur
+                        bar.style.height = `${item.value}%`;
+
+                        console.log(`Barre ${index + 1}: ${item.value}%`);
+
+                        // Animation du label
+                        const barValue = bar.parentElement.querySelector('.bar-value');
+                        if (barValue) {
+                            let current = 0;
+                            const increment = item.value / 30;
+                            const animateValue = () => {
+                                current += increment;
+                                if (current < item.value) {
+                                    barValue.textContent = `${current.toFixed(2)}%`;
+                                    requestAnimationFrame(animateValue);
+                                } else {
+                                    barValue.textContent = `${item.value}%`;
+                                }
+                            };
+                            animateValue();
+                        }
+                    }, index * 400);
+                }
+            });
+        }
+
+        // Observer pour déclencher quand la section est visible
+        const discObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    console.log("Section DISC visible");
+                    setTimeout(animateDiscBars, 300);
+                    discObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2, rootMargin: '0px 0px -50px 0px' });
+
+        // Initialiser l'animation
+        document.addEventListener('DOMContentLoaded', function () {
+            const isMobile = window.innerWidth <= 768;
+
+            // Sur mobile, appliquer immédiatement les hauteurs
+            if (isMobile) {
+                console.log("Mobile détecté - application immédiate des hauteurs");
+                const barData = [
+                    { selector: '.bar.red', value: 54.54 },
+                    { selector: '.bar.yellow', value: 5 },
+                    { selector: '.bar.green', value: 9.09 },
+                    { selector: '.bar.blue', value: 36.36 }
+                ];
+
+                barData.forEach(item => {
+                    const bar = document.querySelector(item.selector);
+                    if (bar) {
+                        bar.style.height = `${item.value}%`;
+                        bar.style.minHeight = '15px';
+                        bar.style.display = 'block';
+                        bar.style.visibility = 'visible';
+                    }
+                });
+            } else {
+                // Sur desktop, réinitialiser pour l'animation
+                document.querySelectorAll('.bar').forEach(bar => {
+                    bar.style.height = '0%';
+                });
+            }
+
+            // Observer la section
+            const discSection = document.getElementById('stats');
+            if (discSection) {
+                discObserver.observe(discSection);
+            }
+
+            // Fallback après 2 secondes
+            setTimeout(() => {
+                const anyBar = document.querySelector('.bar');
+                if (anyBar && (anyBar.style.height === '0%' || anyBar.offsetHeight < 10)) {
+                    console.log("Fallback: animation forcée");
+                    animateDiscBars();
+                }
+            }, 2000);
+        });
+
+        // Réanimer au changement de thème
+        document.getElementById('theme-toggle')?.addEventListener('click', () => {
+            setTimeout(animateDiscBars, 500);
+        });
+    </script>
 </body>
+
 </html>
