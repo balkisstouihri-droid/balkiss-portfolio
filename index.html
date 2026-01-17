@@ -1097,6 +1097,7 @@
             position: relative;
         }
 
+        /* MODIFICATION IMPORTANTE ICI */
         .bar {
             width: 40px;
             border-radius: 8px 8px 0 0;
@@ -1105,6 +1106,9 @@
             box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
             background: linear-gradient(to top, currentColor, rgba(255, 255, 255, 0.3));
             height: 0%;
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
         }
 
         .bar.red {
@@ -1667,6 +1671,8 @@
 
             .bar {
                 width: 35px;
+                /* AJOUT IMPORTANT POUR MOBILE */
+                min-height: 10px !important;
             }
 
             .bar-value {
@@ -1675,78 +1681,63 @@
             }
         }
 
-      
- @media (max-width: 768px) {
-    .contact-info {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-    }
-
-    .contact-item {
-        padding: 1.2rem;
-    }
-
-    .contact-content {
-        padding: 2rem;
-    }
-
-    .contact-details p,
-    .contact-details a {
-        word-break: break-word;
-        overflow-wrap: break-word;
-        hyphens: auto;
-    }
-
-    .stats-grid {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 1.5rem;
-    }
-
-    .stat-card {
-        padding: 2rem;
-    }
-
-    .graph-wrapper {
-        padding: 1.5rem;
-        height: 320px;
-    }
-
-    .legend-item {
-        padding: 1.2rem;
-    }
-
-    .bar-container {
-        width: 55px;
-    }
-
-    .bar {
-        width: 30px;
-        
-        min-height: 10px !important;
-        height: 0%;
-    }
-
-    .bar-label {
-        font-size: 0.8rem;
-    }
-
-    .graph-header {
-        flex-direction: column;
-        gap: 1rem;
-        text-align: center;
-    }
-}
-            
-            .graph-title {
-                font-size: 1.1rem;
+        @media (max-width: 768px) {
+            .contact-info {
+                grid-template-columns: 1fr;
+                gap: 1rem;
             }
-            
-            .graph-scale {
-                font-size: 0.9rem;
+
+            .contact-item {
+                padding: 1.2rem;
             }
-            
+
+            .contact-content {
+                padding: 2rem;
+            }
+
+            .contact-details p,
+            .contact-details a {
+                word-break: break-word;
+                overflow-wrap: break-word;
+                hyphens: auto;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 1.5rem;
+            }
+
+            .stat-card {
+                padding: 2rem;
+            }
+
+            .graph-wrapper {
+                padding: 1.5rem;
+                height: 320px;
+            }
+
             .legend-item {
                 padding: 1.2rem;
+            }
+
+            .bar-container {
+                width: 55px;
+            }
+
+            .bar {
+                width: 30px;
+                min-height: 10px !important;
+                height: 0%;
+            }
+
+            .bar-label {
+                font-size: 0.8rem;
+            }
+
+            .graph-header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
             }
         }
 
@@ -1928,7 +1919,7 @@
                 width: 70%;
                 max-width: 35px;
                 min-height: 8px !important;
-    height: 0%;
+                height: 0%;
             }
             
             .bar-label {
@@ -2618,8 +2609,10 @@
 
         setTimeout(typeWriter, 1500);
 
-        // Animation du graphique DISC
-        function animateBars() {
+        // ANIMATION DU GRAPHIQUE DISC - VERSION AMÉLIORÉE POUR MOBILE
+        function animateDiscBars() {
+            console.log("Animation des barres DISC déclenchée");
+            
             const bars = document.querySelectorAll('.bar');
             const values = document.querySelectorAll('.bar-value');
             
@@ -2633,25 +2626,68 @@
             bars.forEach((bar, index) => {
                 setTimeout(() => {
                     const targetHeight = Math.min(data[index].value, 100);
+                    
+                    // FORCE l'affichage sur mobile
+                    if (window.innerWidth <= 768) {
+                        bar.style.minHeight = '10px';
+                        bar.style.display = 'block';
+                        bar.style.visibility = 'visible';
+                        bar.style.opacity = '1';
+                    }
+                    
+                    // Animation de la hauteur
                     bar.style.height = `${targetHeight}%`;
                     
                     // Animation des valeurs
-                    let current = 0;
-                    const target = data[index].value;
-                    const increment = target / 30;
+                    if (values[index]) {
+                        let current = 0;
+                        const target = data[index].value;
+                        const increment = target / 20;
+                        
+                        const animateValue = () => {
+                            if (current < target) {
+                                current += increment;
+                                values[index].textContent = `${current.toFixed(2)}%`;
+                                setTimeout(animateValue, 50);
+                            } else {
+                                values[index].textContent = `${target}%`;
+                            }
+                        };
+                        
+                        animateValue();
+                    }
                     
-                    const animateValue = () => {
-                        if (current < target) {
-                            current += increment;
-                            values[index].textContent = `${current.toFixed(2)}%`;
-                            setTimeout(animateValue, 30);
-                        } else {
-                            values[index].textContent = `${target}%`;
-                        }
-                    };
-                    
-                    setTimeout(animateValue, 300);
+                    console.log(`Barre ${index}: ${targetHeight}%`);
                 }, index * 400);
+            });
+        }
+
+        // FONCTION POUR FORCER LES BARRES SUR MOBILE
+        function forceMobileBars() {
+            console.log("Force mobile bars execution");
+            
+            const barData = [
+                { selector: '.bar.red', value: 54.54 },
+                { selector: '.bar.yellow', value: 0 },
+                { selector: '.bar.green', value: 9.09 },
+                { selector: '.bar.blue', value: 36.36 }
+            ];
+            
+            barData.forEach((item, index) => {
+                setTimeout(() => {
+                    const bar = document.querySelector(item.selector);
+                    if (bar) {
+                        // Force une hauteur minimale sur mobile
+                        bar.style.minHeight = '10px';
+                        bar.style.display = 'block';
+                        bar.style.visibility = 'visible';
+                        bar.style.opacity = '1';
+                        
+                        // Animation simple
+                        bar.style.height = `${item.value}%`;
+                        bar.style.transition = 'height 1.5s ease';
+                    }
+                }, index * 500);
             });
         }
 
@@ -2660,15 +2696,45 @@
         const chartObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    setTimeout(animateBars, 300);
+                    console.log("Section stats visible");
+                    setTimeout(animateDiscBars, 500);
                     chartObserver.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.3 });
+        }, { 
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        });
 
+        // Toujours observer la section
         if (statsSection) {
             chartObserver.observe(statsSection);
         }
+
+        // Déclencher IMMÉDIATEMENT pour mobile
+        if (window.innerWidth <= 768) {
+            console.log("Mobile detected, forcing bars");
+            setTimeout(forceMobileBars, 1000);
+        }
+
+        // Fallback absolu
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                const bars = document.querySelectorAll('.bar');
+                let allZero = true;
+                
+                bars.forEach(bar => {
+                    if (bar.style.height !== '0%') {
+                        allZero = false;
+                    }
+                });
+                
+                if (allZero) {
+                    console.log("Fallback: animation forcée");
+                    animateDiscBars();
+                }
+            }, 3000);
+        });
     </script>
 </body>
 </html>
